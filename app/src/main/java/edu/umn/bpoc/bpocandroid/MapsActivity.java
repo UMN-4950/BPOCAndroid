@@ -80,7 +80,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     Log.d("MAP_LOG", "Location access denied");
                 }
         }
-        return;
     }
 
     public void askPermission() {
@@ -93,6 +92,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         0);
             }
         }
-        return;
     }
 }

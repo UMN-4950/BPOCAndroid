@@ -2,4 +2,6 @@
     <string name="app_name">BPOCAndroid</string>
     <string name="title_activity_maps">Map</string>
     <string name="send_location_button">Send Location</string>
+    <string name="get_location_button">Get Location</string>
+
 </resources>

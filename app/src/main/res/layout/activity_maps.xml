@@ -11,13 +11,23 @@
         android:layout_weight="1"
         android:layout_gravity="top"/>
 
-    <Button
-        android:id="@+id/submit_coordinate_button"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:text="@string/send_location_button"
-        android:onClick="getLocation" />
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/submit_coordinate_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="@string/send_location_button"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:onClick="getLocation"
+            android:text="@string/get_location_button"
+            />
+    </LinearLayout>
 
 </LinearLayout>
 
