@@ -1,7 +1,13 @@
 <resources>
+    <!-- COMPONENTS -->
     <string name="app_name">BPOCAndroid</string>
     <string name="title_activity_maps">Map</string>
     <string name="send_location_button">Send Location</string>
     <string name="get_location_button">Get Location</string>
+    <string name="move_to_campus_button">Campus</string>
+
+    <!-- API -->
+
+    <!-- CONSTANTS -->
 
 </resources>
