@@ -9,7 +9,6 @@ import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -27,6 +26,7 @@ public class LocationController {
     }
 
     public Location getLocation(View view, GoogleMap googleMap) {
+
         if (ActivityCompat.checkSelfPermission(locationContext, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(locationContext, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(locationActivity, android.Manifest.permission.ACCESS_FINE_LOCATION)) {
@@ -37,8 +37,8 @@ public class LocationController {
             }
             return null;
         }
-        googleMap.setMyLocationEnabled(true);
 
+        googleMap.setMyLocationEnabled(true);
         LocationManager locationManager = (LocationManager) locationContext.getSystemService(Context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
 
@@ -57,16 +57,8 @@ public class LocationController {
         return null;
     }
 
-    public void toastLocation(Location location) {
-        double lat = location.getLatitude();
-        double lon = location.getLongitude();
-        String toast = "Lat: " + lat + "\nLon: " + lon;
-        Toast.makeText(locationContext, toast,
-                Toast.LENGTH_SHORT).show();
-    }
-
     public void moveToCampus(GoogleMap googleMap) {
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(44.9740, -93.2277), 14.0f));
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(44.9740, -93.2277), 14.0f));
     }
 
     private void askForLocationPermission() {

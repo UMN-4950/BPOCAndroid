@@ -14,8 +14,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="2dp">
+        android:orientation="horizontal">
         <Button
             android:id="@+id/submit_coordinate_button"
             android:layout_width="wrap_content"
@@ -34,5 +33,14 @@
             android:text="@string/move_to_campus_button"/>
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/latLongStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:background="#ff058fff"
+        android:textColor="#ffffffff"
+        android:textSize="@dimen/status_text_size"
+        />
 </LinearLayout>
 

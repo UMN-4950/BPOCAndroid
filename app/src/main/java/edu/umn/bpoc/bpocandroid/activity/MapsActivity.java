@@ -1,10 +1,12 @@
 package edu.umn.bpoc.bpocandroid.activity;
 
 import android.location.Location;
+import android.location.LocationListener;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -12,14 +14,15 @@ import com.google.android.gms.maps.SupportMapFragment;
 
 import edu.umn.bpoc.bpocandroid.R;
 import edu.umn.bpoc.bpocandroid.map.LocationController;
+import edu.umn.bpoc.bpocandroid.map.LocationHelper;
+import edu.umn.bpoc.bpocandroid.Util;
 
-import static edu.umn.bpoc.bpocandroid.R.id.map;
-
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener {
 
     private LocationController locationController;
     private Button getLocationButton;
     private Button moveToCamusButton;
+    private TextView locationStatus;
 
 
     @Override
@@ -30,20 +33,29 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         getLocationButton = (Button) findViewById(R.id.get_coordinate_button);
         moveToCamusButton = (Button) findViewById(R.id.move_to_campus_button);
-
+        locationStatus = (TextView) findViewById(R.id.latLongStatus);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(map);
+                .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
 
     @Override
     public void onMapReady(final GoogleMap googleMap) {
 
-        final Location currentLocation = locationController.getLocation(this.getCurrentFocus(), googleMap);
+        // startup view
+        Location startLocation = locationController.getLocation(this.getCurrentFocus(), googleMap);
+        locationStatus.setText(LocationHelper.locationString(startLocation, getApplicationContext()));
+
         getLocationButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                locationController.toastLocation(currentLocation);
+            public void onClick(View view) {
+                Location currentLocation = locationController.getLocation(view, googleMap);
+                if (currentLocation != null) {
+                    LocationHelper.toastLocation(currentLocation, getApplicationContext());
+                }
+                else {
+                    Util.generateToast("null current location", getApplicationContext());
+                }
             }
         });
 
@@ -54,4 +66,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
     }
 
+    @Override
+    public void onLocationChanged(Location location) {
+        Util.generateToast("changed", getApplicationContext());
+    }
+
+    @Override
+    public void onStatusChanged(String s, int i, Bundle bundle) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String s) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String s) {
+
+    }
 }
