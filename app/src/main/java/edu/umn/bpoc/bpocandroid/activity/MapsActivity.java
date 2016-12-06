@@ -45,7 +45,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // startup view
         Location startLocation = locationController.getLocation(this.getCurrentFocus(), googleMap);
-        locationStatus.setText(LocationHelper.locationString(startLocation, getApplicationContext()));
+        if (startLocation != null) {
+            locationStatus.setText(LocationHelper.locationString(startLocation, getApplicationContext()));
+        }
+        else {
+            locationStatus.setText("null location");
+        }
 
         getLocationButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
