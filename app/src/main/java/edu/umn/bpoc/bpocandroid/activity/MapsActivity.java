@@ -21,7 +21,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private LocationController locationController;
     private Button getLocationButton;
-    private Button moveToCamusButton;
+    private Button moveToCampusButton;
     private TextView locationStatus;
 
 
@@ -32,7 +32,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         locationController = new LocationController(getApplicationContext(), this);
 
         getLocationButton = (Button) findViewById(R.id.get_coordinate_button);
-        moveToCamusButton = (Button) findViewById(R.id.move_to_campus_button);
+        moveToCampusButton = (Button) findViewById(R.id.move_to_campus_button);
         locationStatus = (TextView) findViewById(R.id.latLongStatus);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -59,7 +59,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        moveToCamusButton.setOnClickListener(new View.OnClickListener() {
+        moveToCampusButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 locationController.moveToCampus(googleMap);
             }
