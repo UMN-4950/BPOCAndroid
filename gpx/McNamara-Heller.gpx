@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<gpx version="1.1" creator="GPS Visualizer http://www.gpsvisualizer.com/" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+<wpt lat="44.975199" lon="-93.2279887">
+  <name>McNamara Alumni Center, Southeast Oak Street, Minneapolis, MN</name>
+</wpt>
+<wpt lat="44.9716425" lon="-93.2437559">
+  <name>Heller Hall, 19th Avenue South, Minneapolis, MN</name>
+</wpt>
+<trk>
+  <name>McNamara Alumni Center, Southeast Oak Street, Minneapolis, MN - Heller Hall, 19th Avenue South, Minneapolis, MN</name>
+  <desc>0.9 mi, 0:20</desc>
+  <trkseg>
+    <trkpt lat="44.97535" lon="-93.22837"></trkpt>
+    <trkpt lat="44.97511" lon="-93.22856"></trkpt>
+    <trkpt lat="44.97502" lon="-93.22863"></trkpt>
+    <trkpt lat="44.97499" lon="-93.22867"></trkpt>
+    <trkpt lat="44.97495" lon="-93.22869"></trkpt>
+    <trkpt lat="44.9749" lon="-93.22871"></trkpt>
+    <trkpt lat="44.9749" lon="-93.22871"></trkpt>
+    <trkpt lat="44.97491" lon="-93.23032"></trkpt>
+    <trkpt lat="44.97491" lon="-93.23189"></trkpt>
+    <trkpt lat="44.9749" lon="-93.2332"></trkpt>
+    <trkpt lat="44.9749" lon="-93.23326"></trkpt>
+    <trkpt lat="44.97489" lon="-93.23386"></trkpt>
+    <trkpt lat="44.97489" lon="-93.2345"></trkpt>
+    <trkpt lat="44.97489" lon="-93.23499"></trkpt>
+    <trkpt lat="44.97489" lon="-93.23499"></trkpt>
+    <trkpt lat="44.97456" lon="-93.23499"></trkpt>
+    <trkpt lat="44.97445" lon="-93.23499"></trkpt>
+    <trkpt lat="44.97445" lon="-93.23499"></trkpt>
+    <trkpt lat="44.97445" lon="-93.23572"></trkpt>
+    <trkpt lat="44.97445" lon="-93.23572"></trkpt>
+    <trkpt lat="44.97407" lon="-93.23572"></trkpt>
+    <trkpt lat="44.97407" lon="-93.23572"></trkpt>
+    <trkpt lat="44.97408" lon="-93.23669"></trkpt>
+    <trkpt lat="44.97408" lon="-93.23669"></trkpt>
+    <trkpt lat="44.97387" lon="-93.23669"></trkpt>
+    <trkpt lat="44.97378" lon="-93.23669"></trkpt>
+    <trkpt lat="44.97378" lon="-93.23669"></trkpt>
+    <trkpt lat="44.97378" lon="-93.23679"></trkpt>
+    <trkpt lat="44.97378" lon="-93.23686"></trkpt>
+    <trkpt lat="44.97378" lon="-93.2369"></trkpt>
+    <trkpt lat="44.97378" lon="-93.23696"></trkpt>
+    <trkpt lat="44.97377" lon="-93.23709"></trkpt>
+    <trkpt lat="44.97371" lon="-93.23723"></trkpt>
+    <trkpt lat="44.97366" lon="-93.23738"></trkpt>
+    <trkpt lat="44.97362" lon="-93.23744"></trkpt>
+    <trkpt lat="44.9736" lon="-93.23747"></trkpt>
+    <trkpt lat="44.97358" lon="-93.23751"></trkpt>
+    <trkpt lat="44.97355" lon="-93.23763"></trkpt>
+    <trkpt lat="44.97348" lon="-93.23792"></trkpt>
+    <trkpt lat="44.97341" lon="-93.23821"></trkpt>
+    <trkpt lat="44.97291" lon="-93.24102"></trkpt>
+    <trkpt lat="44.97287" lon="-93.24126"></trkpt>
+    <trkpt lat="44.97286" lon="-93.24132"></trkpt>
+    <trkpt lat="44.97284" lon="-93.24141"></trkpt>
+    <trkpt lat="44.97281" lon="-93.2416"></trkpt>
+    <trkpt lat="44.97278" lon="-93.24189"></trkpt>
+    <trkpt lat="44.97272" lon="-93.24229"></trkpt>
+    <trkpt lat="44.97269" lon="-93.24249"></trkpt>
+    <trkpt lat="44.97268" lon="-93.24256"></trkpt>
+    <trkpt lat="44.97268" lon="-93.24256"></trkpt>
+    <trkpt lat="44.97267" lon="-93.24258"></trkpt>
+    <trkpt lat="44.97266" lon="-93.24259"></trkpt>
+    <trkpt lat="44.97257" lon="-93.24267"></trkpt>
+    <trkpt lat="44.97254" lon="-93.24268"></trkpt>
+    <trkpt lat="44.97252" lon="-93.24268"></trkpt>
+    <trkpt lat="44.9725" lon="-93.24268"></trkpt>
+    <trkpt lat="44.97248" lon="-93.24269"></trkpt>
+    <trkpt lat="44.97236" lon="-93.24269"></trkpt>
+    <trkpt lat="44.97232" lon="-93.24269"></trkpt>
+    <trkpt lat="44.97228" lon="-93.24268"></trkpt>
+    <trkpt lat="44.97218" lon="-93.24264"></trkpt>
+    <trkpt lat="44.97218" lon="-93.24264"></trkpt>
+    <trkpt lat="44.97218" lon="-93.24291"></trkpt>
+    <trkpt lat="44.97218" lon="-93.24295"></trkpt>
+    <trkpt lat="44.97218" lon="-93.24302"></trkpt>
+    <trkpt lat="44.97218" lon="-93.24305"></trkpt>
+    <trkpt lat="44.97217" lon="-93.24307"></trkpt>
+    <trkpt lat="44.97216" lon="-93.24309"></trkpt>
+    <trkpt lat="44.97214" lon="-93.24309"></trkpt>
+    <trkpt lat="44.97147" lon="-93.24313"></trkpt>
+    <trkpt lat="44.97147" lon="-93.24313"></trkpt>
+    <trkpt lat="44.97146" lon="-93.24375"></trkpt>
+  </trkseg>
+</trk>
+</gpx>

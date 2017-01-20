@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<gpx version="1.1" creator="GPS Visualizer http://www.gpsvisualizer.com/" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+<wpt lat="44.9812649" lon="-93.2417641">
+  <name>FloCo Fusion - Landmark Apartments, University Avenue Southeast, Minneapolis, MN</name>
+</wpt>
+<wpt lat="44.9760166" lon="-93.2267831">
+  <name>Buffalo Wild Wings, University Avenue Southeast, Minneapolis, MN</name>
+</wpt>
+<trk>
+  <name>FloCo Fusion - Landmark Apartments, University Avenue Southeast, Minneapolis, MN - Buffalo Wild Wings, University Avenue Southeast, Minneapolis, MN</name>
+  <desc>0.9 mi, 0:19</desc>
+  <trkseg>
+    <trkpt lat="44.98151" lon="-93.24158"></trkpt>
+    <trkpt lat="44.98119" lon="-93.24075"></trkpt>
+    <trkpt lat="44.98096" lon="-93.24018"></trkpt>
+    <trkpt lat="44.98062" lon="-93.23933"></trkpt>
+    <trkpt lat="44.98038" lon="-93.23871"></trkpt>
+    <trkpt lat="44.98026" lon="-93.23842"></trkpt>
+    <trkpt lat="44.98008" lon="-93.23796"></trkpt>
+    <trkpt lat="44.9799" lon="-93.23751"></trkpt>
+    <trkpt lat="44.97979" lon="-93.23722"></trkpt>
+    <trkpt lat="44.97968" lon="-93.23693"></trkpt>
+    <trkpt lat="44.9796" lon="-93.23674"></trkpt>
+    <trkpt lat="44.97953" lon="-93.23655"></trkpt>
+    <trkpt lat="44.97941" lon="-93.23625"></trkpt>
+    <trkpt lat="44.97939" lon="-93.2362"></trkpt>
+    <trkpt lat="44.97924" lon="-93.23584"></trkpt>
+    <trkpt lat="44.97909" lon="-93.23548"></trkpt>
+    <trkpt lat="44.97896" lon="-93.23518"></trkpt>
+    <trkpt lat="44.97883" lon="-93.23485"></trkpt>
+    <trkpt lat="44.97873" lon="-93.23459"></trkpt>
+    <trkpt lat="44.97858" lon="-93.23422"></trkpt>
+    <trkpt lat="44.97841" lon="-93.2338"></trkpt>
+    <trkpt lat="44.97838" lon="-93.23372"></trkpt>
+    <trkpt lat="44.97786" lon="-93.23243"></trkpt>
+    <trkpt lat="44.9773" lon="-93.23103"></trkpt>
+    <trkpt lat="44.97706" lon="-93.23041"></trkpt>
+    <trkpt lat="44.97698" lon="-93.23022"></trkpt>
+    <trkpt lat="44.97681" lon="-93.22979"></trkpt>
+    <trkpt lat="44.97676" lon="-93.22968"></trkpt>
+    <trkpt lat="44.97672" lon="-93.22958"></trkpt>
+    <trkpt lat="44.97658" lon="-93.22922"></trkpt>
+    <trkpt lat="44.97652" lon="-93.22908"></trkpt>
+    <trkpt lat="44.97642" lon="-93.22881"></trkpt>
+    <trkpt lat="44.97633" lon="-93.22859"></trkpt>
+    <trkpt lat="44.97602" lon="-93.22784"></trkpt>
+    <trkpt lat="44.97586" lon="-93.22745"></trkpt>
+    <trkpt lat="44.97573" lon="-93.22713"></trkpt>
+    <trkpt lat="44.9757" lon="-93.22706"></trkpt>
+    <trkpt lat="44.97551" lon="-93.22658"></trkpt>
+    <trkpt lat="44.97551" lon="-93.22658"></trkpt>
+    <trkpt lat="44.97557" lon="-93.22653"></trkpt>
+    <trkpt lat="44.9759" lon="-93.22629"></trkpt>
+    <trkpt lat="44.97599" lon="-93.22626"></trkpt>
+    <trkpt lat="44.97606" lon="-93.22625"></trkpt>
+    <trkpt lat="44.97606" lon="-93.22625"></trkpt>
+    <trkpt lat="44.97611" lon="-93.22647"></trkpt>
+    <trkpt lat="44.97611" lon="-93.22652"></trkpt>
+    <trkpt lat="44.97612" lon="-93.22656"></trkpt>
+    <trkpt lat="44.97613" lon="-93.22658"></trkpt>
+    <trkpt lat="44.97614" lon="-93.22663"></trkpt>
+    <trkpt lat="44.97616" lon="-93.22667"></trkpt>
+  </trkseg>
+</trk>
+</gpx>
