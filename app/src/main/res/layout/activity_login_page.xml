@@ -1,53 +1,73 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_login_page"
+    android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/blue_grey_700"
+    android:orientation="vertical"
+    android:weightSum="4"
     tools:context="edu.umn.bpoc.bpocandroid.activity.LoginPage">
 
-    <TextView
-        android:id="@+id/app_title"
-        android:text="@string/app_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#000000"
-        android:textSize="40sp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:ems="10"
-        android:layout_marginTop="79dp"
-        android:id="@+id/text_emailaddress"
-        android:layout_below="@+id/app_title"
-        android:layout_centerHorizontal="true" />
+        <ImageView
+            android:id="@+id/google_icon"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="@dimen/g_top_margin"
+            android:contentDescription="@string/desc_bpoc_icon"
+            android:src="@drawable/bpoc" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:id="@+id/text_password"
-        android:layout_below="@+id/text_emailaddress"
-        android:layout_alignStart="@+id/text_emailaddress"
-        android:layout_marginTop="15dp" />
 
-    <Button
-        android:id="@+id/button_login"
-        android:text="Sign In"
-        android:textSize="20sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/text_password"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp" />
-</RelativeLayout>
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/signed_out"
+            android:textColor="@android:color/white"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fadeScrollbars="true"
+            android:gravity="center"
+            android:maxLines="5"
+            android:padding="10dp"
+            android:scrollbars="vertical"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            android:text="@string/desc_bpoc_login"/>
+
+        <Button
+            android:id="@+id/button_optional_action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="dev sign-in"/>
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/blue_grey_900">
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/sign_in_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="visible"
+            tools:visibility="gone" />
+    </RelativeLayout>
+
+</LinearLayout>
