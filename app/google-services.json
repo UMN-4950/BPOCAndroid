@@ -1,0 +1,79 @@
+{
+  "project_info": {
+    "project_number": "243121100265",
+    "project_id": "bpoc-147702"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:243121100265:android:584ddc6547f408d9",
+        "android_client_info": {
+          "package_name": "edu.umn.bpoc.bpocandroid.activity"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "243121100265-erh5eh53nkg50cj01f2ebpj4b10plab1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_uXqBPtaMMdQ1AXPUMyaRXdrYsDmvLF4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:243121100265:android:75bfed6a75b1e4cb",
+        "android_client_info": {
+          "package_name": "edu.umn.bpoc.bpocandroid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "243121100265-6n0n5a4g72rincikgckmfkki8umkbi3t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.umn.bpoc.bpocandroid",
+            "certificate_hash": "9FE4384B8961EA89C0A62B8976D7871FAF312283"
+          }
+        },
+        {
+          "client_id": "243121100265-erh5eh53nkg50cj01f2ebpj4b10plab1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_uXqBPtaMMdQ1AXPUMyaRXdrYsDmvLF4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

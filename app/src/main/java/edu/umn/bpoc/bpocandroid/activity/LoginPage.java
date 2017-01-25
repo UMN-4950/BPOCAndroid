@@ -134,6 +134,7 @@ public class LoginPage extends AppCompatActivity implements
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            Status st = result.getStatus();
             handleSignInResult(result);
         }
     }
@@ -144,7 +145,8 @@ public class LoginPage extends AppCompatActivity implements
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
             assert acct != null;
-            String displayName = acct.getDisplayName();
+            String givenName = acct.getGivenName();
+            String familyName = acct.getFamilyName();
             String userId = acct.getId();
             String userEmail = acct.getEmail();
 
