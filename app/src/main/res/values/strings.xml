@@ -26,4 +26,6 @@
     <string name="desc_bpoc_icon">BOOC Logo</string>
     <string name="desc_bpoc_login">BOOC description in login page</string>
 
+    <string name="server_client_id">243121100265-q8rflssgvn2hlmieppaigllj4fhcos47.apps.googleusercontent.com</string>
+
 </resources>

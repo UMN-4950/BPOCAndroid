@@ -18,6 +18,7 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 
 import edu.umn.bpoc.bpocandroid.R;
 import edu.umn.bpoc.bpocandroid.Util;
@@ -51,6 +52,7 @@ public class LoginPage extends AppCompatActivity implements
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                // .requestIdToken(getString(R.string.server_client_id))
                 .requestEmail()
                 .build();
         // [END configure_signin]
@@ -149,7 +151,7 @@ public class LoginPage extends AppCompatActivity implements
             signInToMapView();
         }
         else {
-            Util.generateToast("didn't sign in", getApplicationContext());
+            Util.generateToast("You need to sign in", getApplicationContext());
         }
     }
 
