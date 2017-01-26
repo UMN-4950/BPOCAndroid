@@ -15,11 +15,11 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".activity.MapsActivity"
+            android:name=".MapsActivity"
             android:label="@string/title_activity_maps">
         </activity>
         <activity
-            android:name=".activity.LoginPage"
+            android:name=".LoginPage"
             android:label="BPOC">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

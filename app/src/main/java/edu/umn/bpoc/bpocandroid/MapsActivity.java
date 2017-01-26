@@ -1,4 +1,4 @@
-package edu.umn.bpoc.bpocandroid.activity;
+package edu.umn.bpoc.bpocandroid;
 
 import android.location.Location;
 import android.location.LocationListener;
@@ -11,11 +11,6 @@ import android.widget.TextView;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-
-import edu.umn.bpoc.bpocandroid.R;
-import edu.umn.bpoc.bpocandroid.map.LocationController;
-import edu.umn.bpoc.bpocandroid.map.LocationHelper;
-import edu.umn.bpoc.bpocandroid.Util;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener {
 

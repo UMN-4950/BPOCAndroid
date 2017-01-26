@@ -1,4 +1,4 @@
-package edu.umn.bpoc.bpocandroid.activity;
+package edu.umn.bpoc.bpocandroid;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -19,9 +19,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
-
-import edu.umn.bpoc.bpocandroid.R;
-import edu.umn.bpoc.bpocandroid.Util;
 
 public class LoginPage extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener,

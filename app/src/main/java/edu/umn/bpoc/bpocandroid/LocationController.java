@@ -1,4 +1,4 @@
-package edu.umn.bpoc.bpocandroid.map;
+package edu.umn.bpoc.bpocandroid;
 
 import android.app.Activity;
 import android.content.Context;
