@@ -2,9 +2,9 @@ package edu.umn.bpoc.bpocandroid;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -99,8 +99,8 @@ public class LoginPage extends AppCompatActivity implements
      */
     public void signInToMapView() {
         Intent intent = new Intent(LoginPage.this,MapsActivity.class);
-        startActivity(intent);
         finish();
+        startActivity(intent);
     }
 
     private void signIn() {

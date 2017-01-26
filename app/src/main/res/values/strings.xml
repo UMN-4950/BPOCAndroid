@@ -1,4 +1,9 @@
 <resources>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
     <!-- COMPONENTS -->
     <string name="app_name">BPOCAndroid</string>
     <string name="title_activity_maps">Map</string>
@@ -27,5 +32,4 @@
     <string name="desc_bpoc_login">BOOC description in login page</string>
 
     <string name="server_client_id">243121100265-q8rflssgvn2hlmieppaigllj4fhcos47.apps.googleusercontent.com</string>
-
 </resources>
