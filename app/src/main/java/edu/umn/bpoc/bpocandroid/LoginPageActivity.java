@@ -20,7 +20,7 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
-public class LoginPage extends AppCompatActivity implements
+public class LoginPageActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener {
 
@@ -98,9 +98,10 @@ public class LoginPage extends AppCompatActivity implements
      * development sign-in without authentication process
      */
     public void signInToMapView() {
-        Intent intent = new Intent(LoginPage.this,MapsActivity.class);
-        finish();
-        startActivity(intent);
+//        Intent intent = new Intent(LoginPageActivity.this,MapsActivity.class);
+//        finish();
+//        startActivity(intent);
+        startActivity(new Intent(this, MapsActivity.class));
     }
 
     private void signIn() {
@@ -149,9 +150,9 @@ public class LoginPage extends AppCompatActivity implements
 
             signInToMapView();
         }
-        else {
-            Util.generateToast("You need to sign in", getApplicationContext());
-        }
+//        else {
+//            Util.generateToast("You need to sign in", getApplicationContext());
+//        }
     }
 
     private void showProgressDialog() {
