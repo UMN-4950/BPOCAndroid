@@ -4,26 +4,32 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_camera"
-            android:title="item1" />
+            android:title="Map" />
         <item
             android:id="@+id/nav_gallery"
-            android:title="item2" />
+            android:title="Friend List" />
         <item
             android:id="@+id/nav_slideshow"
-            android:title="item3" />
+            android:title="Event List" />
         <item
             android:id="@+id/nav_manage"
-            android:title="item4" />
+            android:title="Setting" />
     </group>
 
-    <item android:title="subcat">
+    <item android:title="Map Control">
         <menu>
+            <group android:checkableBehavior="all">
             <item
                 android:id="@+id/nav_share"
-                android:title="sub1" />
+                android:title="My Location" />
             <item
                 android:id="@+id/nav_send"
-                android:title="sub2" />
+                android:title="Friend" />
+
+            <item
+                android:id="@+id/nav_view"
+                android:title="Event"/>
+            </group>
         </menu>
     </item>
 
