@@ -30,7 +30,7 @@
     <string name="loading">Loading…</string>
 
     <!-- Content Description for images -->
-    <string name="desc_bpoc_icon">BOOC Logo</string>
-    <string name="desc_bpoc_login">BOOC description in login page</string>
+    <string name="desc_bpoc_icon">BPOC Logo</string>
+    <string name="desc_bpoc_login">BPOC description in login page</string>
 
 </resources>
