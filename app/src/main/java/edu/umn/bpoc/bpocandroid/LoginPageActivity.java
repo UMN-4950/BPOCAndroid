@@ -115,6 +115,8 @@ public class LoginPageActivity extends AppCompatActivity implements
             case R.id.sign_in_button:
                 signIn();
                 break;
+            case R.id.action_sign_out:
+                Util.generateToast("sign out", getApplicationContext());
             default:
                 Util.generateToast("default button", getApplicationContext());
         }
