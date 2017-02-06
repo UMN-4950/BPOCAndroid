@@ -12,6 +12,7 @@ import android.view.View;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 
@@ -39,6 +40,11 @@ public class LocationController {
         }
 
         googleMap.setMyLocationEnabled(true);
+        
+        UiSettings googleMapUiSettings = googleMap.getUiSettings();
+        googleMapUiSettings.setZoomControlsEnabled(true);
+        googleMapUiSettings.setTiltGesturesEnabled(false);
+
         LocationManager locationManager = (LocationManager) locationContext.getSystemService(Context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
 
