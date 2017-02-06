@@ -34,5 +34,6 @@
     <string name="desc_bpoc_login">BOOC description in login page</string>
     <string name="title_activity_friend_list">Friend List</string>
     <string name="title_activity_event_list">EventList</string>
+    <string name="title_activity_setting">Setting</string>
 
 </resources>

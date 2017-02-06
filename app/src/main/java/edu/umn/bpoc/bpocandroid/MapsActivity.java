@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.LinearLayoutCompat;
+import android.view.Gravity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,6 +19,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +33,8 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.vision.text.Line;
+
 import bpocandroid.fragment.*;
 
 public class MapsActivity extends AppCompatActivity
@@ -40,6 +45,7 @@ public class MapsActivity extends AppCompatActivity
     private Button moveToCampusButton;
     private TextView locationStatus;
     private GoogleApiClient mGoogleApiClient;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,43 +140,39 @@ public class MapsActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         Fragment fragment = null;
+        LinearLayout buttons = (LinearLayout)findViewById(R.id.buttons);
+        TextView latlongStatus = (TextView)findViewById(R.id.latLongStatus);
 
         if (id == R.id.nav_map) {
-            // Handle the camera action
+            buttons.setVisibility(View.VISIBLE);
+            latlongStatus.setVisibility(View.VISIBLE);
+            fragment = new MapFragment();
+            TextView textView = (TextView)findViewById(R.id.toolbar_title);
+            textView.setText("Map");
+            //Handle the camera action
         } else if (id == R.id.nav_friendlist) {
-            Context context = getApplicationContext();
-            CharSequence text = "Hello toast!";
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
             fragment = new FriendListFragment();
             TextView textView = (TextView)findViewById(R.id.toolbar_title);
             textView.setText("Friend List");
-
-
+            buttons.setVisibility(View.GONE);
+            latlongStatus.setVisibility(View.GONE);
         } else if (id == R.id.nav_eventlist) {
-            Context context = getApplicationContext();
-            CharSequence text = "Hello toast 2!";
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
             fragment = new EventListFragment();
             TextView textView = (TextView)findViewById(R.id.toolbar_title);
             textView.setText("Event List");
-
+            buttons.setVisibility(View.GONE);
+            latlongStatus.setVisibility(View.GONE);
         } else if (id == R.id.nav_setting) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+            fragment = new SettingFragment();
+            TextView textView = (TextView)findViewById(R.id.toolbar_title);
+            textView.setText("Setting");
+            buttons.setVisibility(View.GONE);
+            latlongStatus.setVisibility(View.GONE);
         }
 
         if(fragment != null) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.content_maps, fragment);
+            fragmentTransaction.replace(R.id.content_frame, fragment);
             fragmentTransaction.commit();
 
         }

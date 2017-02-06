@@ -9,7 +9,9 @@
     tools:context="edu.umn.bpoc.bpocandroid.MapsActivity"
     tools:showIn="@layout/app_bar_maps">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
+        android:id="@+id/content_frame"
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical" >
@@ -23,6 +25,7 @@
             android:layout_gravity="top"/>
 
         <LinearLayout
+            android:id="@+id/buttons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
