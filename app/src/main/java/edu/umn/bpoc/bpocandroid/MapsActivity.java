@@ -2,12 +2,15 @@ package edu.umn.bpoc.bpocandroid;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutCompat;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -30,6 +33,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -38,14 +42,16 @@ import com.google.android.gms.vision.text.Line;
 import bpocandroid.fragment.*;
 
 public class MapsActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, LocationListener, GoogleApiClient.OnConnectionFailedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, LocationListener,
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private LocationController locationController;
     private Button getLocationButton;
     private Button moveToCampusButton;
     private TextView locationStatus;
     private GoogleApiClient mGoogleApiClient;
-
+    private GoogleMap mGoogleMap;
+    private boolean requestingPermission = false; // Prevents toasts from being generated when requesting permissions
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +85,13 @@ public class MapsActivity extends AppCompatActivity
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API)
+                .addApi(LocationServices.API)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
                 .build();
+
+        locationController.setGoogleApiClient(mGoogleApiClient);
+        locationController.createLocationRequest();
     }
 
     @Override
@@ -122,16 +134,11 @@ public class MapsActivity extends AppCompatActivity
             new ResultCallback<Status>() {
                 @Override
                 public void onResult(Status status) {
-                    Util.generateToast("signed out", getApplicationContext());
+                    if (!requestingPermission)
+                        Util.generateToast("signed out", getApplicationContext());
                     startActivity(new Intent(getApplicationContext(), LoginPageActivity.class));
                 }
             });
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mGoogleApiClient.connect();
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -182,28 +189,79 @@ public class MapsActivity extends AppCompatActivity
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        locationController.permissionsCallback(requestCode, permissions, grantResults, this.getCurrentFocus(), mGoogleMap);
+        requestingPermission = false;
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        locationController.settingsCallback(requestCode, resultCode, data, this.getCurrentFocus(), mGoogleMap);
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    protected void onStop() {
+        mGoogleApiClient.disconnect();
+        super.onStop();
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        Log.d("CONNECT_LOG", "Connection suspended");
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Log.d("CONNECT_LOG", "Connection failed");
+    }
+
+    @Override
+    public void onConnected(Bundle bundle) {
+        requestingPermission = !locationController.checkPermission(android.Manifest.permission.ACCESS_FINE_LOCATION);
+
+        if (!requestingPermission)
+            Util.generateToast("Connected", getApplicationContext());
+    }
+
+    @Override
     public void onLocationChanged(Location location) {
-        Util.generateToast("changed", getApplicationContext());
+        requestingPermission = !locationController.checkPermission(android.Manifest.permission.ACCESS_FINE_LOCATION);
+
+        if (!requestingPermission)
+            Util.generateToast("changed", getApplicationContext());
     }
 
     @Override
     public void onMapReady(final GoogleMap googleMap) {
+        mGoogleMap = googleMap;
+        requestingPermission = !locationController.checkPermission(android.Manifest.permission.ACCESS_FINE_LOCATION);
+
         // startup view
-        Location startLocation = locationController.getLocation(this.getCurrentFocus(), googleMap);
+        Location startLocation = locationController.getLocation(this.getCurrentFocus(), mGoogleMap);
         if (startLocation != null) {
             locationStatus.setText(LocationHelper.locationString(startLocation, getApplicationContext()));
-        }
-        else {
+        } else {
             locationStatus.setText("null location");
         }
 
         getLocationButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Location currentLocation = locationController.getLocation(view, googleMap);
-                if (currentLocation != null) {
+                Location currentLocation = locationController.getLocation(view, mGoogleMap);
+                requestingPermission = !locationController.checkPermission(android.Manifest.permission.ACCESS_FINE_LOCATION);
+
+                if (currentLocation != null && !requestingPermission) {
                     LocationHelper.toastLocation(currentLocation, getApplicationContext());
-                }
-                else {
+                } else if (!requestingPermission) {
                     Util.generateToast("null current location", getApplicationContext());
                 }
             }
@@ -211,13 +269,8 @@ public class MapsActivity extends AppCompatActivity
 
         moveToCampusButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                locationController.moveToCampus(googleMap);
+                locationController.moveToCampus(mGoogleMap);
             }
         });
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
     }
 }
