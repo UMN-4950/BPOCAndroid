@@ -280,11 +280,11 @@ public class MapsActivity extends AppCompatActivity
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) locationButton.getLayoutParams();
             // position on right bottom
 
-            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_END, 0); // removes right anchor
-            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT); // aligns to center
+            //layoutParams.addRule(RelativeLayout.ALIGN_PARENT_END, 0); // removes right anchor
+            //layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT); // aligns to center
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0); // removes top anchor
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
-            layoutParams.setMargins(30, 30, 30, 30); // left, top, right, bottom
+            layoutParams.setMargins(0, 0, 30, 30); // left, top, right, bottom
         }
     }
 }
