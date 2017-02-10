@@ -1,17 +1,12 @@
-package edu.umn.bpoc.bpocandroid;
+package edu.umn.bpoc.bpocandroid.activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -25,7 +20,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.ConnectionResult;
@@ -37,9 +31,13 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.vision.text.Line;
 
-import bpocandroid.fragment.*;
+import edu.umn.bpoc.bpocandroid.LocationController;
+import edu.umn.bpoc.bpocandroid.LocationHelper;
+import edu.umn.bpoc.bpocandroid.R;
+import edu.umn.bpoc.bpocandroid.Util;
+import edu.umn.bpoc.bpocandroid.activity.LoginPageActivity;
+import edu.umn.bpoc.bpocandroid.fragment.*;
 
 public class MapsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, LocationListener,
@@ -50,6 +48,7 @@ public class MapsActivity extends AppCompatActivity
     private Button moveToCampusButton;
     private TextView locationStatus;
     private GoogleApiClient mGoogleApiClient;
+    private View mapView;
     private GoogleMap mGoogleMap;
     private boolean requestingPermission = false; // Prevents toasts from being generated when requesting permissions
 
@@ -80,7 +79,9 @@ public class MapsActivity extends AppCompatActivity
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
+        mapView = mapFragment.getView();
         mapFragment.getMapAsync(this);
+
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
@@ -276,5 +277,18 @@ public class MapsActivity extends AppCompatActivity
                 locationController.moveToCampus(mGoogleMap);
             }
         });
+
+        if (mapView != null && mapView.findViewById(Integer.parseInt("1")) != null) {
+            // Get the button view
+            View locationButton = ((View) mapView.findViewById(Integer.parseInt("1")).getParent()).findViewById(Integer.parseInt("2"));
+            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) locationButton.getLayoutParams();
+            // position on right bottom
+
+            //layoutParams.addRule(RelativeLayout.ALIGN_PARENT_END, 0); // removes right anchor
+            //layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT); // aligns to center
+            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0); // removes top anchor
+            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+            layoutParams.setMargins(0, 0, 30, 30); // left, top, right, bottom
+        }
     }
 }
