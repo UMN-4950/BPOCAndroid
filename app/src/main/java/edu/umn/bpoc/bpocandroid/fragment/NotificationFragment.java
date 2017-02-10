@@ -1,4 +1,4 @@
-package bpocandroid.fragment;
+package edu.umn.bpoc.bpocandroid.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
