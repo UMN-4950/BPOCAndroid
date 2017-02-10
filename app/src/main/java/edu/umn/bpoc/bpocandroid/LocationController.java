@@ -140,7 +140,7 @@ public class LocationController {
         googleMap.setMyLocationEnabled(true);
         
         UiSettings googleMapUiSettings = googleMap.getUiSettings();
-        googleMapUiSettings.setZoomControlsEnabled(true);
+        googleMapUiSettings.setZoomControlsEnabled(false);
         googleMapUiSettings.setTiltGesturesEnabled(false);
 
         LocationManager locationManager = (LocationManager) locationContext.getSystemService(Context.LOCATION_SERVICE);
