@@ -151,8 +151,6 @@ public class MapsActivity extends AppCompatActivity
         TextView latlongStatus = (TextView)findViewById(R.id.latLongStatus);
 
         if (id == R.id.nav_map) {
-            buttons.setVisibility(View.VISIBLE);
-            latlongStatus.setVisibility(View.VISIBLE);
             fragment = new MapFragment();
             TextView textView = (TextView)findViewById(R.id.toolbar_title);
             textView.setText("Map");
