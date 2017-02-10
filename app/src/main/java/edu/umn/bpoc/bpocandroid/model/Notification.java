@@ -1,4 +1,4 @@
-package edu.umn.bpoc.bpocandroid;
+package edu.umn.bpoc.bpocandroid.model;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -6,6 +6,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+
+import edu.umn.bpoc.bpocandroid.R;
 
 public class Notification extends AppCompatActivity {
 

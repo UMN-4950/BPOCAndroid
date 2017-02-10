@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import edu.umn.bpoc.bpocandroid.Notification;
 import edu.umn.bpoc.bpocandroid.R;
 
 /**
