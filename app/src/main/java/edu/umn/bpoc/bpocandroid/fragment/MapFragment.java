@@ -1,4 +1,4 @@
-package bpocandroid.fragment;
+package edu.umn.bpoc.bpocandroid.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,17 +11,17 @@ import android.widget.Toast;
 import edu.umn.bpoc.bpocandroid.R;
 
 /**
- * Created by wznic on 2/6/2017.
+ * Created by wznic on 2/5/2017.
  */
 
-public class SettingFragment extends Fragment {
-    public SettingFragment () {}
+public class MapFragment extends Fragment {
+    public MapFragment () {}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
-        View rootView = inflater.inflate(R.layout.content_setting, container, false);
+        View rootView = inflater.inflate(R.layout.content_maps, container, false);
         Context context = getActivity();
-        CharSequence text = "Hello welcome to setting!";
+        CharSequence text = "Back to the map!";
         int duration = Toast.LENGTH_SHORT;
 
         Toast toast = Toast.makeText(context, text, duration);
