@@ -45,6 +45,7 @@ public class MapsActivity extends AppCompatActivity
     private Button moveToCampusButton;
     private TextView locationStatus;
     private GoogleApiClient mGoogleApiClient;
+    private View mapView;
 
 
     @Override
@@ -74,7 +75,9 @@ public class MapsActivity extends AppCompatActivity
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
+        mapView = mapFragment.getView();
         mapFragment.getMapAsync(this);
+
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
@@ -214,6 +217,19 @@ public class MapsActivity extends AppCompatActivity
                 locationController.moveToCampus(googleMap);
             }
         });
+
+        if (mapView != null && mapView.findViewById(Integer.parseInt("1")) != null) {
+            // Get the button view
+            View locationButton = ((View) mapView.findViewById(Integer.parseInt("1")).getParent()).findViewById(Integer.parseInt("2"));
+            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) locationButton.getLayoutParams();
+            // position on right bottom
+
+            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_END, 0); // removes right anchor
+            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT); // aligns to center
+            //layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0); // removes top anchor
+            //layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+            layoutParams.setMargins(30, 30, 30, 30); // left, top, right, bottom
+        }
     }
 
     @Override
