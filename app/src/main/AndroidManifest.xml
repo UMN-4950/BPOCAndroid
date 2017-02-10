@@ -27,14 +27,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FriendList"
+            android:name=".model.FriendList"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".EventList"
+            android:name=".model.EventList"
             android:label="@string/title_activity_event_list"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Setting"
+            android:name=".model.Setting"
             android:label="@string/title_activity_setting"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

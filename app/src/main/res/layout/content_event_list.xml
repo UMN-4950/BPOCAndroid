@@ -10,7 +10,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="edu.umn.bpoc.bpocandroid.EventList"
+    tools:context="edu.umn.bpoc.bpocandroid.model.EventList"
     tools:showIn="@layout/activity_event_list">
     <TextView
         android:text="TextView Will Have event here, test for now"
