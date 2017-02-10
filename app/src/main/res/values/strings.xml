@@ -35,5 +35,6 @@
     <string name="title_activity_friend_list">Friend List</string>
     <string name="title_activity_event_list">EventList</string>
     <string name="title_activity_setting">Setting</string>
+    <string name="title_activity_notification">Notification</string>
 
 </resources>

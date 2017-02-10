@@ -12,6 +12,9 @@
             android:id="@+id/nav_eventlist"
             android:title="Event List" />
         <item
+            android:id="@+id/nav_notification"
+            android:title="Notification" />
+        <item
             android:id="@+id/nav_setting"
             android:title="Setting" />
     </group>
