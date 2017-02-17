@@ -1,12 +1,16 @@
 package edu.umn.bpoc.bpocandroid.activity;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 
 import com.google.android.gms.auth.api.Auth;
@@ -23,7 +27,7 @@ import com.google.android.gms.common.api.Status;
 import edu.umn.bpoc.bpocandroid.R;
 import edu.umn.bpoc.bpocandroid.Util;
 
-public class LoginPageActivity extends AppCompatActivity implements
+public class LoginPageActivity extends FragmentActivity implements
         GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener {
 
@@ -35,6 +39,7 @@ public class LoginPageActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_login_page);
 
         // dev sign-in button
