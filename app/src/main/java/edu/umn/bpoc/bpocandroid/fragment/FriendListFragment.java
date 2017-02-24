@@ -4,6 +4,8 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -42,7 +44,14 @@ public class FriendListFragment extends Fragment {
 
         friendList = (ListView)rootView.findViewById(R.id.friend_list);
         friendList.setAdapter(new FriendListAdapter(this.getContext(), friendsListData, this.getActivity()));
+        setHasOptionsMenu(true);
         return rootView;
+    }
+
+    @Override
+    public void  onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
+        menuInflater.inflate(R.menu.activity_friend_list_menu,menu);
+        super.onCreateOptionsMenu(menu, menuInflater);
     }
 
 }
