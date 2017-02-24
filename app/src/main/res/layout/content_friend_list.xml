@@ -13,12 +13,8 @@
     tools:context="edu.umn.bpoc.bpocandroid.model.FriendList"
     tools:showIn="@layout/activity_friend_list">
 
-    <TextView
-        android:text="TextView Will Have friend here"
+    <ListView
+        android:id="@+id/friend_list"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="218dp"
-        android:id="@+id/textView2" />
+        android:layout_height="wrap_content"/>
 </RelativeLayout>
