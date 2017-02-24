@@ -18,6 +18,8 @@ public class FakeFriend implements Serializable{
         this.distance = distance;
     }
 
+    public String getName (){return this.name;}
+    public double getDistance () {return this.distance;}
 
 
 

@@ -3,7 +3,7 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/personal_icon"
+        android:id="@+id/friend_icon"
         android:contentDescription="Personal_Icon"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -21,9 +21,9 @@
         android:textColor="#FF000000"
         android:layout_marginLeft="30dp"
         android:layout_marginStart="30dp"
-        android:layout_toRightOf="@id/personal_icon"
-        android:layout_toEndOf="@id/personal_icon"
-        android:layout_alignBottom="@id/personal_icon"
+        android:layout_toRightOf="@id/friend_icon"
+        android:layout_toEndOf="@id/friend_icon"
+        android:layout_alignBottom="@id/friend_icon"
         android:textSize="28dp"
         android:text="Jack Aisles"/>
 
@@ -36,7 +36,7 @@
         android:textSize="28dp"
         android:text="0.2 mile"
         android:layout_alignBaseline="@+id/friend_name"
-        android:layout_alignBottom="@+id/personal_icon"
+        android:layout_alignBottom="@+id/friend_icon"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="20dp" />
 
