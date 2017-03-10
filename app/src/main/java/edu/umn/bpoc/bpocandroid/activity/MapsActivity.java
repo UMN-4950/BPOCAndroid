@@ -182,13 +182,13 @@ public class MapsActivity extends AppCompatActivity
             textView.setText("Setting");
             buttons.setVisibility(View.GONE);
             latlongStatus.setVisibility(View.GONE);
-        } /*else if(id == R.id.nav_notification) {
+        } else if(id == R.id.nav_notification) {
             fragment = new NotificationFragment();
             TextView textView = (TextView)findViewById(R.id.toolbar_title);
             textView.setText("Notification");
             buttons.setVisibility(View.GONE);
             latlongStatus.setVisibility(View.GONE);
-        }*/
+        }
 
         if(fragment != null) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
