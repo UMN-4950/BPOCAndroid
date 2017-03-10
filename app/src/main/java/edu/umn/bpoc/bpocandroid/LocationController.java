@@ -42,6 +42,7 @@ public class LocationController {
     private GoogleApiClient mGoogleApiClient;
     private boolean doNotShowAgain = false;
     private boolean requestingPermission = false;
+    private boolean loopRequestLocation = false;
 
     public LocationController(Context context, Activity activity) {
         locationContext = context;
@@ -117,7 +118,12 @@ public class LocationController {
                 resultCode + "], data = [" + data + "].");
         switch (requestCode) {
             case 1: /*REQUEST_CHECK_SETTINGS*/
+                if (resultCode == 0) {
+                    return;
+                }
                 createLocationRequest();
+
+                loopRequestLocation = true;
                 getLocation(view, googleMap);
                 break;
             case 2: /*REQUEST_CODE_RESOLUTION*/
@@ -180,7 +186,18 @@ public class LocationController {
                     .build();                   // Creates a CameraPosition from the builder
             googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
+            loopRequestLocation = false;
             return location;
+        }
+        if (loopRequestLocation) { // If we want the location to be updated ASAP
+            final View v = view;
+            final GoogleMap g = googleMap;
+            new android.os.Handler().postDelayed(
+                    new Runnable() {
+                        public void run() {
+                            getLocation(v, g);
+                        }
+                    }, 1000);
         }
         return null;
     }
