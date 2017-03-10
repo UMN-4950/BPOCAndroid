@@ -3,6 +3,7 @@ package edu.umn.bpoc.bpocandroid.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
+import android.location.LocationListener;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -30,7 +31,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.LocationListener;
+//import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -98,6 +99,7 @@ public class MapsActivity extends AppCompatActivity
                 .build();
 
         locationController.setGoogleApiClient(mGoogleApiClient);
+        locationController.setLocationListener(this);
         locationController.createLocationRequest();
     }
 
@@ -180,13 +182,13 @@ public class MapsActivity extends AppCompatActivity
             textView.setText("Setting");
             buttons.setVisibility(View.GONE);
             latlongStatus.setVisibility(View.GONE);
-        } else if(id == R.id.nav_notification) {
+        } /*else if(id == R.id.nav_notification) {
             fragment = new NotificationFragment();
             TextView textView = (TextView)findViewById(R.id.toolbar_title);
             textView.setText("Notification");
             buttons.setVisibility(View.GONE);
             latlongStatus.setVisibility(View.GONE);
-        }
+        }*/
 
         if(fragment != null) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -246,10 +248,21 @@ public class MapsActivity extends AppCompatActivity
 
     @Override
     public void onLocationChanged(Location location) {
-        requestingPermission = !locationController.checkPermission(android.Manifest.permission.ACCESS_FINE_LOCATION);
+    }
 
-        if (!requestingPermission)
-            Util.generateToast("changed", getApplicationContext());
+    @Override
+    public void onProviderEnabled(String s) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String s) {
+
+    }
+
+    @Override
+    public void onStatusChanged(String s, int i, Bundle b) {
+
     }
 
     @Override

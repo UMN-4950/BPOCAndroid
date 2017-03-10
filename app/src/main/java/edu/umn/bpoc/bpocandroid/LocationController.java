@@ -7,6 +7,7 @@ import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -35,17 +36,25 @@ public class LocationController {
     private Context locationContext;
     private Activity locationActivity;
     private LocationRequest locationRequest;
+    private LocationListener locationListener;
+    private LocationManager locationManager;
 
     private GoogleApiClient mGoogleApiClient;
     private boolean doNotShowAgain = false;
+    private boolean requestingPermission = false;
 
     public LocationController(Context context, Activity activity) {
         locationContext = context;
         locationActivity = activity;
+        locationManager = (LocationManager) locationContext.getSystemService(Context.LOCATION_SERVICE);
     }
 
     public void setGoogleApiClient(GoogleApiClient googleApiClient) {
         mGoogleApiClient = googleApiClient;
+    }
+
+    public void setLocationListener(LocationListener listener) {
+        locationListener = listener;
     }
 
     public void createLocationRequest() {
@@ -53,6 +62,19 @@ public class LocationController {
         locationRequest.setInterval(6000);
         locationRequest.setFastestInterval(3000);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+        // Check permissions
+        if (checkPermission(android.Manifest.permission.ACCESS_FINE_LOCATION)) {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+        }
+        else {
+            if (!doNotShowAgain && !requestingPermission) {
+                ActivityCompat.requestPermissions(locationActivity,
+                        new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                        0);
+                requestingPermission = true;
+            }
+        }
     }
 
     public void checkLocationSettings() {
@@ -110,6 +132,7 @@ public class LocationController {
     }
 
     public void permissionsCallback(int requestCode, String permissions[], int[] grantResults, View view, GoogleMap googleMap) {
+        requestingPermission = false;
         if (requestCode == 0) {
             for (int i = 0; i < permissions.length; i++) {
                 if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
@@ -128,10 +151,12 @@ public class LocationController {
     public Location getLocation(View view, GoogleMap googleMap) {
         // Check permissions
         if (!checkPermission(android.Manifest.permission.ACCESS_FINE_LOCATION)) {
-            if (!doNotShowAgain)
+            if (!doNotShowAgain && !requestingPermission) {
                 ActivityCompat.requestPermissions(locationActivity,
                         new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
                         0);
+                requestingPermission = true;
+            }
             return null;
         }
 
@@ -143,7 +168,6 @@ public class LocationController {
         googleMapUiSettings.setZoomControlsEnabled(false);
         googleMapUiSettings.setTiltGesturesEnabled(false);
 
-        LocationManager locationManager = (LocationManager) locationContext.getSystemService(Context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
 
         Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
