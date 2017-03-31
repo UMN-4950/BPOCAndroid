@@ -154,6 +154,7 @@ public class LoginPageActivity extends FragmentActivity implements
 
             /*
             We need to do all the database logic before opening the map!
+            Maybe use a spinning circle
             */
 
             signInToMapView();
