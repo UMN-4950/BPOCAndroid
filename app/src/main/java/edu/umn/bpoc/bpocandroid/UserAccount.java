@@ -48,21 +48,6 @@ public class UserAccount {
         Log.d("AccountActivity", "Database ID: " + id);
     }
 
-    // Helper for getting JSON object
-    private String readStream(InputStream is) {
-        try {
-            ByteArrayOutputStream bo = new ByteArrayOutputStream();
-            int i = is.read();
-            while(i != -1) {
-                bo.write(i);
-                i = is.read();
-            }
-            return bo.toString();
-        } catch (IOException e) {
-            return "";
-        }
-    }
-
     private class AccessDatabaseTask extends AsyncTask<String, Void, String> {
 
         private Exception exception;
