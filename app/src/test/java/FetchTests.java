@@ -10,10 +10,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.DateFormat;
-import java.util.Date;
 
+import edu.umn.bpoc.bpocandroid.resource.Friend;
 import edu.umn.bpoc.bpocandroid.resource.Location;
+import edu.umn.bpoc.bpocandroid.resource.Notification;
 import edu.umn.bpoc.bpocandroid.resource.User;
 
 public class FetchTests {
@@ -46,26 +46,52 @@ public class FetchTests {
     }
 
     @Test
-    public void testLocationTest() {
+    public void friendJSONTest() {
         try {
-            Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
-
-            //String json = "{'Id':3,'Latitude':12.0,'Longitude':89.1,'Time':'2008-02-16T12:15:12','UserId':5,'User':null)";
-            //Location location = gson.fromJson(json, Location.class);
-            //Assert.assertNotNull(location);
-
-            String json = "{'i':1,'s':'testing','d':'2008-02-16T12:15:12'}";
-            Dummy d = gson.fromJson(json, Dummy.class);
-            Assert.assertNotNull(d);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
+            Gson gson = new Gson();
+            String json = "{}";
+            Friend friend = gson.fromJson(json, Friend.class);
+            Assert.assertNotNull(friend);
+        } catch(Exception exception){
+            exception.printStackTrace();
         }
     }
 
-    public class Dummy {
-        public int i;
-        public String s;
-        public Date d;
+    @Test
+    public void locationJSONTest() {
+        try {
+            // example date --> 2008-02-16T12:15:12
+            Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
+            String json = "{}";
+            Location location = gson.fromJson(json, Location.class);
+            Assert.assertNotNull(location);
+        }
+        catch (Exception exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    @Test
+    public void notificationJSONTest() {
+        try {
+            Gson gson = new Gson();
+            String json = "{}";
+            Notification notification = gson.fromJson(json, Notification.class);
+            Assert.assertNotNull(notification);
+        } catch(Exception exception){
+            exception.printStackTrace();
+        }
+    }
+
+    @Test
+    public void userJSONTest() {
+        try {
+            Gson gson = new Gson();
+            String json = "{}";
+            User user = gson.fromJson(json, User.class);
+            Assert.assertNotNull(user);
+        } catch(Exception exception){
+            exception.printStackTrace();
+        }
     }
 }
