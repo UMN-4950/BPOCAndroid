@@ -20,6 +20,7 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
+import edu.umn.bpoc.bpocandroid.DatabaseTask;
 import edu.umn.bpoc.bpocandroid.R;
 import edu.umn.bpoc.bpocandroid.Util;
 import edu.umn.bpoc.bpocandroid.UserAccount;
@@ -150,18 +151,35 @@ public class LoginPageActivity extends FragmentActivity implements
         Log.d(TAG, "handleSignInResult:" + result.isSuccess());
         if (result.isSuccess()) {
             mUserAccount.setGoogleAccount(result);
-            mUserAccount.requestDatabaseId();
 
-            /*
-            We need to do all the database logic before opening the map!
-            Maybe use a spinning circle
-            */
+            // implement the callback class for checking the database id
+            class getIdTask extends DatabaseTask {
+                @Override
+                protected void onPostExecute(String result) {
+                    if (responseCode == 404) {
+                        Log.d("AccountActivity", "Account no found");
+                        //TODO: Post user account to db
+                        //return;
+                    }
+                    else if (responseCode != 200) {
+                        Log.d("AccountActivity", "Response Code: " + responseCode);
+                        //TODO: Handle bad response code
+                        return;
+                    }
 
-            signInToMapView();
+                    signIntoDatabase();
+                }
+            }
+
+            mUserAccount.checkDatabaseForAccount(new getIdTask());
+
+            // TODO: Transition to a loading screen
         }
-//        else {
-//            Util.generateToast("You need to sign in", getApplicationContext());
-//        }
+    }
+
+    private void signIntoDatabase() {
+        // TODO: add extra callback code in response to response from DB
+        signInToMapView();
     }
 
     private void showProgressDialog() {
