@@ -87,7 +87,6 @@ public class UserAccount {
         @Override
         protected void onPostExecute(String result) {
             printDatabaseId(result);
-
         }
 
         // Helper for getting JSON object
