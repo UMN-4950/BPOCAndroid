@@ -48,7 +48,7 @@ public class FetchTests {
     @Test
     public void testLocationTest() {
         try {
-            Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").create();
+            Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
 
             //String json = "{'Id':3,'Latitude':12.0,'Longitude':89.1,'Time':'2008-02-16T12:15:12','UserId':5,'User':null)";
             //Location location = gson.fromJson(json, Location.class);

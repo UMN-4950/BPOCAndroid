@@ -2,7 +2,6 @@ package edu.umn.bpoc.bpocandroid.adapter;
 
 import android.content.Context;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import edu.umn.bpoc.bpocandroid.R;
-import edu.umn.bpoc.bpocandroid.datatype.FakeFriend;
+import edu.umn.bpoc.bpocandroid.resource.Friend;
 
 /**
  * Created by wznic on 2/17/2017.
@@ -21,11 +20,11 @@ import edu.umn.bpoc.bpocandroid.datatype.FakeFriend;
 
 public class FriendListAdapter extends BaseAdapter {
 //customer adapter for list view
-    private ArrayList<FakeFriend> friendList;
+    private ArrayList<Friend> friendList;
     private FragmentActivity activity;
     private LayoutInflater layoutInflater;
 
-    public FriendListAdapter(Context context, ArrayList<FakeFriend> friendList, FragmentActivity activity) {
+    public FriendListAdapter(Context context, ArrayList<Friend> friendList, FragmentActivity activity) {
         this.friendList = friendList;
         this.activity = activity;
         layoutInflater = LayoutInflater.from(context);
