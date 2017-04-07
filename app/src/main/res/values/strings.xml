@@ -41,4 +41,9 @@
     <string name="title_activity_add_friend">AddFriend</string>
     <string name="title_activity_friend_request">FriendRequest</string>
 
+    <!-- URLS - GET -->
+    <string name="user_query_url">http://bpocrestservice.azurewebsites.net/api/users/</string>
+    <string name="user_check_using_gid_url">http://bpocrestservice.azurewebsites.net/api/users/</string>
+    <string name="user_id_from_gid_url">http://bpocrestservice.azurewebsites.net/api/users/getid/</string>
+
 </resources>
