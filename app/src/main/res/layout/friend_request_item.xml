@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/friend_request_icon"
+        android:contentDescription="Personal_Icon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:src="@drawable/bpoc"/>
+
+    <TextView
+        android:id="@+id/friend_request_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FF000000"
+        android:layout_marginLeft="30dp"
+        android:textSize="20dp"
+        android:text="Tom Jerry"
+        android:layout_alignTop="@+id/friend_request_icon"
+        android:layout_toEndOf="@+id/friend_request_icon"
+        android:layout_marginStart="14dp" />
+
+    <Button
+        android:id="@+id/accept_friend"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:text="Accept"
+        android:layout_toLeftOf="@+id/deny_friend"
+        android:layout_alignBottom="@+id/friend_request_icon"
+        android:layout_alignTop="@id/deny_friend"/>
+
+    <Button
+        android:text="Deny"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/deny_friend"
+        android:layout_alignBottom="@+id/friend_request_icon"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>

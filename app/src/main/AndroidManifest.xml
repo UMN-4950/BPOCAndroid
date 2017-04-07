@@ -48,9 +48,15 @@
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
-            <meta-data android:name="android.app.searchable"
-                android:resource="@layout/content_add_friend"/>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@layout/content_add_friend" />
         </activity>
+        <activity
+            android:name=".model.FriendRequestList"
+            android:label="@string/title_activity_friend_request"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

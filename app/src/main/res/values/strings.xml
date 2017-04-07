@@ -39,5 +39,6 @@
     <string name="title_activity_setting">Setting</string>
     <string name="title_activity_notification">Notification</string>
     <string name="title_activity_add_friend">AddFriend</string>
+    <string name="title_activity_friend_request">FriendRequest</string>
 
 </resources>

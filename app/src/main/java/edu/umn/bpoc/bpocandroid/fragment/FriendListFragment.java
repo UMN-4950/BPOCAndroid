@@ -19,6 +19,7 @@ import edu.umn.bpoc.bpocandroid.R;
 import edu.umn.bpoc.bpocandroid.adapter.FriendListAdapter;
 import edu.umn.bpoc.bpocandroid.datatype.FakeFriend;
 import edu.umn.bpoc.bpocandroid.model.AddFriend;
+import edu.umn.bpoc.bpocandroid.model.FriendRequestList;
 
 /**
  * Created by wznic on 2/3/2017.
@@ -61,8 +62,12 @@ public class FriendListFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()) {
             case R.id.action_add_friend:
-                Intent intent = new Intent(FriendListFragment.this.getContext(), AddFriend.class);
-                startActivity(intent);
+                Intent intent1 = new Intent(FriendListFragment.this.getContext(), AddFriend.class);
+                startActivity(intent1);
+                return true;
+            case R.id.action_friend_request:
+                Intent intent2 = new Intent(FriendListFragment.this.getContext(), FriendRequestList.class);
+                startActivity(intent2);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
