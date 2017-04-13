@@ -25,6 +25,13 @@
         android:layout_toEndOf="@+id/friend_request_icon"
         android:layout_marginStart="14dp" />
 
+    <TextView
+        android:id="@+id/requester_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:text="1" />
+
     <Button
         android:id="@+id/accept_friend"
         android:layout_width="80dp"
@@ -42,5 +49,14 @@
         android:layout_alignBottom="@+id/friend_request_icon"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/requester_result"
+        android:layout_alignBottom="@+id/friend_request_icon"
+        android:layout_alignParentEnd="true"
+        android:textSize="20dp"
+        android:layout_height="32dp"
+        android:layout_width="wrap_content"
+        android:visibility="gone"/>
 
 </RelativeLayout>

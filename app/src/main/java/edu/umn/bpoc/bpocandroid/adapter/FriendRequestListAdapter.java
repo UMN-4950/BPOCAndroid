@@ -6,8 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -42,6 +45,9 @@ public class FriendRequestListAdapter extends BaseAdapter {
     private static class ViewHolder {
         ImageView friendRequestIcon;
         TextView friendRequestName;
+        TextView requesterId;
+        Button accept;
+        Button deny;
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -51,6 +57,9 @@ public class FriendRequestListAdapter extends BaseAdapter {
             viewHolder = new FriendRequestListAdapter.ViewHolder();
             viewHolder.friendRequestIcon = (ImageView)convertView.findViewById(R.id.friend_request_icon);
             viewHolder.friendRequestName = (TextView)convertView.findViewById(R.id.friend_request_name);
+            viewHolder.requesterId = (TextView)convertView.findViewById(R.id.requester_id);
+            viewHolder.accept = (Button)convertView.findViewById(R.id.accept_friend);
+            viewHolder.deny = (Button)convertView.findViewById(R.id.deny_friend);
             convertView.setTag(viewHolder);
         }
         else {
@@ -59,6 +68,49 @@ public class FriendRequestListAdapter extends BaseAdapter {
 
         viewHolder.friendRequestIcon.setImageResource(R.drawable.bpoc);
         viewHolder.friendRequestName.setText(friendRequestList.get(position).getStrangerName());
+        viewHolder.requesterId.setText(Integer.toString(friendRequestList.get(position).getStrangerId()));
+        viewHolder.accept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RelativeLayout request = (RelativeLayout)view.getParent();
+                TextView tvRequesterName = (TextView)request.getChildAt(1);
+                TextView tvRequesterId = (TextView)request.getChildAt(2);
+                Button accept = (Button)request.getChildAt(3);
+                Button deny = (Button)request.getChildAt(4);
+                TextView requestResult = (TextView)request.getChildAt(5);
+                accept.setVisibility(View.GONE);
+                deny.setVisibility(View.GONE);
+                requestResult.setText("Accepted");
+                requestResult.setVisibility(View.VISIBLE);
+                String stRequesterName = tvRequesterName.getText().toString();
+                String stRequesterId = tvRequesterId.getText().toString();
+                String result = stRequesterName + "'s request is accepted. id " + stRequesterId;
+                int duration = Toast.LENGTH_SHORT;
+                Toast toast = Toast.makeText(view.getContext(), result, duration);
+                toast.show();
+            }
+        });
+        viewHolder.deny.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RelativeLayout request = (RelativeLayout)view.getParent();
+                TextView tvRequesterName = (TextView)request.getChildAt(1);
+                TextView tvRequesterId = (TextView)request.getChildAt(2);
+                Button accept = (Button)request.getChildAt(3);
+                Button deny = (Button)request.getChildAt(4);
+                TextView requestResult = (TextView)request.getChildAt(5);
+                accept.setVisibility(View.GONE);
+                deny.setVisibility(View.GONE);
+                requestResult.setText("Denied");
+                requestResult.setVisibility(View.VISIBLE);
+                String stRequesterName = tvRequesterName.getText().toString();
+                String stRequesterId = tvRequesterId.getText().toString();
+                String result = stRequesterName + "'s request is Denied. id " + stRequesterId;
+                int duration = Toast.LENGTH_SHORT;
+                Toast toast = Toast.makeText(view.getContext(), result, duration);
+                toast.show();
+            }
+        });
         return convertView;
     }
 

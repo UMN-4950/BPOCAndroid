@@ -26,8 +26,8 @@ public class FriendRequestList extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        FriendRequest data1 = new FriendRequest(1, "Tom Jerry");
-        FriendRequest data2 = new FriendRequest(2, "Lo L");
+        FriendRequest data1 = new FriendRequest(2333, "Tom Jerry");
+        FriendRequest data2 = new FriendRequest(6666, "Lo L");
         friendsRequestListData = new ArrayList<FriendRequest>();
         friendsRequestListData.add(data1);
         friendsRequestListData.add(data2);
