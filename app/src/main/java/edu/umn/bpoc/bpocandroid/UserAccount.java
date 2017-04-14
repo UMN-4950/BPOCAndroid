@@ -15,6 +15,8 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import edu.umn.bpoc.bpocandroid.resource.User;
+
 public class UserAccount {
     private GoogleSignInAccount acct;
     private String givenName;
@@ -33,11 +35,22 @@ public class UserAccount {
         userEmail = acct.getEmail();
     }
 
-    public void checkDatabaseForAccount(DatabaseTask dbt) {
+    public String getGoogleId() {
+        return googleId;
+    }
+
+    public User generateUser() {
         if (acct == null) {
-            Log.d("AccountActivity", "Cannot search for null ID in database");
-            return;
+            Log.d("AccountActivity", "Cannot generate user for null account");
+            return null;
         }
-        dbt.execute("http://bpocrestservice.azurewebsites.net/api/users/checklogin/" + googleId);
+
+        User user = new User();
+        user.GoogleId = googleId;
+        user.Email = userEmail;
+        user.GivenName = givenName;
+        user.FamilyName = familyName;
+
+        return user;
     }
 }

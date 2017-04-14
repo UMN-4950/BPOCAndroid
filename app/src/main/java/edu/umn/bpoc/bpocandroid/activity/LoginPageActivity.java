@@ -19,11 +19,13 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.google.gson.Gson;
 
 import edu.umn.bpoc.bpocandroid.DatabaseTask;
 import edu.umn.bpoc.bpocandroid.R;
 import edu.umn.bpoc.bpocandroid.Util;
 import edu.umn.bpoc.bpocandroid.UserAccount;
+import edu.umn.bpoc.bpocandroid.resource.User;
 
 public class LoginPageActivity extends FragmentActivity implements
         GoogleApiClient.OnConnectionFailedListener,
@@ -150,14 +152,16 @@ public class LoginPageActivity extends FragmentActivity implements
     private void handleSignInResult(GoogleSignInResult result) {
         Log.d(TAG, "handleSignInResult:" + result.isSuccess());
         if (result.isSuccess()) {
+            showProgressDialog();
             mUserAccount.setGoogleAccount(result);
 
             // implement the callback class for checking the database id
-            class getIdTask extends DatabaseTask {
+            class GetIdTask extends DatabaseTask {
                 @Override
                 protected void onPostExecute(String result) {
                     if (responseCode == 404) {
                         Log.d("AccountActivity", "Account no found");
+                        postToDatabase();
                         //TODO: Post user account to db
                         //return;
                     }
@@ -171,14 +175,41 @@ public class LoginPageActivity extends FragmentActivity implements
                 }
             }
 
-            mUserAccount.checkDatabaseForAccount(new getIdTask());
+            new GetIdTask().call("users/checklogin/" + mUserAccount.getGoogleId());
 
             // TODO: Transition to a loading screen
         }
     }
 
+    private void postToDatabase() {
+        User user = mUserAccount.generateUser();
+
+        if (user == null) {
+            return;
+        }
+
+        class PostUserTask extends DatabaseTask {
+            @Override
+            protected void onPostExecute(String result) {
+                if (responseCode != 200) {
+                    Log.d("AccountActivity", "Response Code: " + responseCode);
+                    //TODO: Handle bad response code
+                    return;
+                }
+
+                signIntoDatabase();
+            }
+        }
+
+        PostUserTask task = new PostUserTask();
+        Gson gson = new Gson();
+        task.setPostData(gson.toJson(user));
+        task.call("/api/users/");
+    }
+
     private void signIntoDatabase() {
         // TODO: add extra callback code in response to response from DB
+        hideProgressDialog();
         signInToMapView();
     }
 
