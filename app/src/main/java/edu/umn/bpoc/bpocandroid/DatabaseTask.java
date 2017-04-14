@@ -43,6 +43,7 @@ public class DatabaseTask extends AsyncTask<String, Void, String> {
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoInput(true);
             if (method != "GET") {
+                urlConnection.setRequestProperty("Content-Type", "application/json");
                 urlConnection.setRequestMethod(method); // I think this is necessary
                 urlConnection.setDoOutput(true);
                 OutputStream os = new BufferedOutputStream(urlConnection.getOutputStream());
@@ -51,10 +52,6 @@ public class DatabaseTask extends AsyncTask<String, Void, String> {
             }
 
             responseCode = urlConnection.getResponseCode();
-            if (responseCode != 200) {
-                return null;
-            }
-
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
             String response = readStream(in);
             return response;

@@ -33,7 +33,6 @@ public class LoginPageActivity extends FragmentActivity implements
 
     private ProgressDialog mProgressDialog;
     private GoogleApiClient mGoogleApiClient;
-    private UserAccount mUserAccount;
     private static final int RC_SIGN_IN = 9001;
     private static final String TAG = "SignInActivity";
 
@@ -78,7 +77,8 @@ public class LoginPageActivity extends FragmentActivity implements
         signInButton.setSize(SignInButton.SIZE_STANDARD);
         // [END customize_button]
 
-        mUserAccount = new UserAccount();
+        // No instantiation needed anymore
+        //mUserAccount = new UserAccount();
     }
 
     @Override
@@ -115,6 +115,7 @@ public class LoginPageActivity extends FragmentActivity implements
     }
 
     private void signIn() {
+        showProgressDialog();
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
@@ -152,18 +153,17 @@ public class LoginPageActivity extends FragmentActivity implements
     private void handleSignInResult(GoogleSignInResult result) {
         Log.d(TAG, "handleSignInResult:" + result.isSuccess());
         if (result.isSuccess()) {
-            showProgressDialog();
-            mUserAccount.setGoogleAccount(result);
+            UserAccount.setGoogleAccount(result);
 
             // implement the callback class for checking the database id
             class GetIdTask extends DatabaseTask {
                 @Override
                 protected void onPostExecute(String result) {
                     if (responseCode == 404) {
-                        Log.d("AccountActivity", "Account no found");
+                        Log.d("AccountActivity", "Account not found");
                         postToDatabase();
                         //TODO: Post user account to db
-                        //return;
+                        return;
                     }
                     else if (responseCode != 200) {
                         Log.d("AccountActivity", "Response Code: " + responseCode);
@@ -171,18 +171,19 @@ public class LoginPageActivity extends FragmentActivity implements
                         return;
                     }
 
+                    Gson gson = new Gson();
+                    User user = gson.fromJson(result, User.class);
+                    UserAccount.setDBId(user.Id);
                     signIntoDatabase();
                 }
             }
 
-            new GetIdTask().call("users/checklogin/" + mUserAccount.getGoogleId());
-
-            // TODO: Transition to a loading screen
+            new GetIdTask().call("users/checklogin/" + UserAccount.getGoogleId());
         }
     }
 
     private void postToDatabase() {
-        User user = mUserAccount.generateUser();
+        User user = UserAccount.generateUser();
 
         if (user == null) {
             return;
@@ -196,6 +197,12 @@ public class LoginPageActivity extends FragmentActivity implements
                     //TODO: Handle bad response code
                     return;
                 }
+                else {
+                    Log.d("AccountActivity", "Post successful");
+                    Gson gson = new Gson();
+                    User user = gson.fromJson(result, User.class);
+                    UserAccount.setDBId(user.Id);
+                }
 
                 signIntoDatabase();
             }
@@ -204,7 +211,7 @@ public class LoginPageActivity extends FragmentActivity implements
         PostUserTask task = new PostUserTask();
         Gson gson = new Gson();
         task.setPostData(gson.toJson(user));
-        task.call("/api/users/");
+        task.call("users/");
     }
 
     private void signIntoDatabase() {
