@@ -192,6 +192,7 @@ public class LocationController {
             loopRequestLocation = false;
             return location;
         }
+
         if (loopRequestLocation) { // If we want the location to be updated ASAP
             final View v = view;
             final GoogleMap g = googleMap;
@@ -223,7 +224,8 @@ public class LocationController {
         PostLocationTask task = new PostLocationTask();
         Gson gson = new Gson();
         task.setPostData(gson.toJson(location));
-        task.call("users/updatelocation/" + UserAccount.getDBId());
+        task.call("locations/postlocation/" + UserAccount.getDBId()
+            + "/" + location.getLatitude() + "/" + location.getLongitude());
     }
 
     public void moveToCampus(GoogleMap googleMap) {

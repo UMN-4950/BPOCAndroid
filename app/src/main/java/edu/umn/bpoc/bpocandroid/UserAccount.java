@@ -10,6 +10,7 @@ import junit.framework.Assert;
 import edu.umn.bpoc.bpocandroid.resource.User;
 
 public class UserAccount {
+    public static boolean dev = true;
     private static GoogleSignInAccount acct;
     private static String givenName;
     private static String familyName;
@@ -22,6 +23,8 @@ public class UserAccount {
     }
 
     public static void setGoogleAccount(GoogleSignInResult result) {
+        dev = false;
+
         acct = result.getSignInAccount();
         assert acct != null;
         givenName = acct.getGivenName();

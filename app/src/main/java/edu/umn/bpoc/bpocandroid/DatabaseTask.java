@@ -24,7 +24,8 @@ public class DatabaseTask extends AsyncTask<String, Void, String> {
     protected int responseCode;
 
     public void call(String s) {
-        execute(dbURL + s);
+        if (!UserAccount.dev)
+            execute(dbURL + s);
     }
 
     public void setPostData(String json) {
@@ -61,7 +62,7 @@ public class DatabaseTask extends AsyncTask<String, Void, String> {
         }
     }
 
-    // OVERRIDE THIS FUNCTION WHEN EXTENDING THIS CLASS
+    // OVERRIDE onPostExecute WHEN EXTENDING THIS CLASS
     // EX:
     // @Override
     // protected void onPostExecute(String result) {

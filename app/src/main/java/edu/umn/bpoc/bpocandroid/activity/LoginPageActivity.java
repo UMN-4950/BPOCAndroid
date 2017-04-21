@@ -23,7 +23,7 @@ import com.google.gson.Gson;
 
 import edu.umn.bpoc.bpocandroid.DatabaseTask;
 import edu.umn.bpoc.bpocandroid.R;
-import edu.umn.bpoc.bpocandroid.Util;
+import edu.umn.bpoc.bpocandroid.utilities.Util;
 import edu.umn.bpoc.bpocandroid.UserAccount;
 import edu.umn.bpoc.bpocandroid.resource.User;
 

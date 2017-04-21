@@ -1,4 +1,4 @@
-package edu.umn.bpoc.bpocandroid;
+package edu.umn.bpoc.bpocandroid.utilities;
 
 import android.content.Context;
 import android.widget.Toast;
