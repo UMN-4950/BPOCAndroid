@@ -13,8 +13,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.net.CookieHandler;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 public class DatabaseTask extends AsyncTask<String, Void, String> {
     private Exception exception;
@@ -22,6 +26,8 @@ public class DatabaseTask extends AsyncTask<String, Void, String> {
     private String method = "GET";
     private String output = null;
     protected int responseCode;
+    protected static List<String> cookies = null;
+    private boolean needsCookie = false;
 
     public void call(String s) {
         execute(dbURL + s);
@@ -35,6 +41,11 @@ public class DatabaseTask extends AsyncTask<String, Void, String> {
     public void setPutData(String json) {
         output = json;
         method = "PUT";
+    }
+
+    public void setNeedsCookie(String json) {
+        output = json;
+        needsCookie = true;
     }
 
     protected String doInBackground(String... urls) {
@@ -51,6 +62,8 @@ public class DatabaseTask extends AsyncTask<String, Void, String> {
                 urlConnection.connect();
             }
 
+            //TODO: add check for needsCookie
+
             responseCode = urlConnection.getResponseCode();
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
             String response = readStream(in);
@@ -58,6 +71,19 @@ public class DatabaseTask extends AsyncTask<String, Void, String> {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    protected static void initializeCookieStatus(HttpURLConnection urlConnection) {
+        // if we do not have cookie capabilities, start using them
+        CookieHandler.setDefault(new CookieManager(null, CookiePolicy.ACCEPT_ALL));
+        cookies = urlConnection.getHeaderFields().get("Set-Cookie");
+    }
+
+    protected static void addCookies(HttpURLConnection urlConnection) {
+        // if we have cookie capabilities, add cookies
+        for (String cookie : cookies) {
+            urlConnection.addRequestProperty("Cookie", cookie.split(";", 2)[0]);
         }
     }
 
