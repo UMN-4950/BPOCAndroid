@@ -6,30 +6,55 @@ import android.util.Log;
 import junit.framework.Assert;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class DatabaseTask extends AsyncTask<String, Void, String> {
     private Exception exception;
+    private final String dbURL = "http://bpocrestservice.azurewebsites.net/api/";
+    private String method = "GET";
+    private String output = null;
     protected int responseCode;
+
+    public void call(String s) {
+        execute(dbURL + s);
+    }
+
+    public void setPostData(String json) {
+        output = json;
+        method = "POST";
+    }
+
+    public void setPutData(String json) {
+        output = json;
+        method = "PUT";
+    }
 
     protected String doInBackground(String... urls) {
         try {
             URL url = new URL(urls[0]);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            responseCode = urlConnection.getResponseCode();
-            if (responseCode != 200) {
-                return "";
+            urlConnection.setDoInput(true);
+            if (method != "GET") {
+                urlConnection.setRequestProperty("Content-Type", "application/json");
+                urlConnection.setRequestMethod(method); // I think this is necessary
+                urlConnection.setDoOutput(true);
+                OutputStream os = new BufferedOutputStream(urlConnection.getOutputStream());
+                writeStream(os);
+                urlConnection.connect();
             }
-            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-            //InputStream in = url.openStream();
-            String jsonFromDatabase = readStream(in);
-            //Assert.assertNotNull(jsonFromDatabase);
 
-            return jsonFromDatabase;
+            responseCode = urlConnection.getResponseCode();
+            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+            String response = readStream(in);
+            return response;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -58,6 +83,18 @@ public class DatabaseTask extends AsyncTask<String, Void, String> {
             return bo.toString();
         } catch (IOException e) {
             return "";
+        }
+    }
+
+    // Helper for writing JSON object to database
+    private void writeStream(OutputStream os) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "utf-8"));
+            writer.write(output);
+            writer.flush();
+            writer.close();
+            os.close();
+        } catch (IOException e) {
         }
     }
 
