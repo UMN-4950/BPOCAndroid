@@ -48,6 +48,8 @@ import edu.umn.bpoc.bpocandroid.utilities.LatLngInterpolator;
 import edu.umn.bpoc.bpocandroid.utilities.Util;
 import edu.umn.bpoc.bpocandroid.fragment.*;
 
+import static java.lang.Math.pow;
+
 public class MapsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, LocationListener,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
@@ -315,12 +317,25 @@ public class MapsActivity extends AppCompatActivity
             layoutParams.setMargins(0, 0, 30, 30); // left, top, right, bottom
         }
 
+        googleMap.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
+            @Override
+            public void onCameraMove() {
+                float zoom = googleMap.getCameraPosition().zoom;
+                float sqrZoom = googleMap.getCameraPosition().zoom*googleMap.getCameraPosition().zoom;
+                Log.d("MAP_LOG", "Zoom is " + zoom);
+                for (int i = 0; i < circles.size(); i++) {
+                    circles.get(i).setRadius(750000/pow(2, zoom));
+                    circles.get(i).setStrokeWidth(2.5f);
+                }
+            }
+        });
+
         googleMap.setOnCircleClickListener(new GoogleMap.OnCircleClickListener() {
             @Override
             public void onCircleClick(Circle circle) {
                 Random r = new Random();
                 CircleAnimation.animateCircleToGB(circle,
-                        new LatLng(44.9740 + r.nextFloat()*2 - 1, -93.2277 + r.nextFloat()*2 - 1),
+                        new LatLng(44.9740 + r.nextFloat()*.5 - .25, -93.2277 + r.nextFloat()*.5 - .25),
                         new LatLngInterpolator.Linear());
             }
         });
@@ -328,10 +343,11 @@ public class MapsActivity extends AppCompatActivity
         // test circle
         Random r = new Random();
         circles.add(mGoogleMap.addCircle(new CircleOptions()
-                .center(new LatLng(44.9740 + r.nextFloat()*2 - 1, -93.2277 + r.nextFloat()*2 - 1))
-                .radius(10000)
-                .strokeColor(Color.RED)
-                .fillColor(Color.GREEN)
+                .center(new LatLng(44.9740, -93.2277))
+                .radius(750000/pow(2, mGoogleMap.getCameraPosition().zoom))
+                .strokeWidth(2.5f)
+                .strokeColor(Color.WHITE)
+                .fillColor(Color.RED)
                 .clickable(true)));
     }
 }
