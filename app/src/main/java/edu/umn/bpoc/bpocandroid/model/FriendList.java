@@ -24,7 +24,12 @@ public class FriendList extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        Friend data1 = new Friend(123,"D. T", "Friend",0.5);
+        Friend data2 = new Friend(456,"B. O", "Friend",0.7);
+
         friendsListData = new ArrayList<Friend>();
+        friendsListData.add(data1);
+        friendsListData.add(data2);
 
         friendList = (ListView)findViewById(R.id.friend_list);
         friendList.setAdapter(new FriendListAdapter(this, friendsListData, this));
