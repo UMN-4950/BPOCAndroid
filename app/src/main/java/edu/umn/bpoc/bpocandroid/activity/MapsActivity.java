@@ -1,15 +1,13 @@
 package edu.umn.bpoc.bpocandroid.activity;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -18,9 +16,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -36,13 +32,23 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
+import com.google.android.gms.maps.model.LatLng;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import edu.umn.bpoc.bpocandroid.LocationController;
 import edu.umn.bpoc.bpocandroid.LocationHelper;
 import edu.umn.bpoc.bpocandroid.R;
-import edu.umn.bpoc.bpocandroid.Util;
-import edu.umn.bpoc.bpocandroid.activity.LoginPageActivity;
+import edu.umn.bpoc.bpocandroid.utilities.CircleAnimation;
+import edu.umn.bpoc.bpocandroid.utilities.LatLngInterpolator;
+import edu.umn.bpoc.bpocandroid.utilities.Util;
 import edu.umn.bpoc.bpocandroid.fragment.*;
+
+import static java.lang.Math.pow;
 
 public class MapsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, LocationListener,
@@ -56,6 +62,8 @@ public class MapsActivity extends AppCompatActivity
     private View mapView;
     private GoogleMap mGoogleMap;
     private boolean requestingPermission = false; // Prevents toasts from being generated when requesting permissions
+
+    private List<Circle> circles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +96,6 @@ public class MapsActivity extends AppCompatActivity
                 .findFragmentById(R.id.map);
         mapView = mapFragment.getView();
         mapFragment.getMapAsync(this);
-
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
@@ -160,10 +167,7 @@ public class MapsActivity extends AppCompatActivity
         TextView latlongStatus = (TextView)findViewById(R.id.latLongStatus);
 
         if (id == R.id.nav_map) {
-            fragment = new MapFragment();
-            TextView textView = (TextView)findViewById(R.id.toolbar_title);
-            textView.setText("Map");
-            //Handle the camera action
+            locationController.moveToCampus(mGoogleMap);
         } else if (id == R.id.nav_friendlist) {
             fragment = new FriendListFragment();
             TextView textView = (TextView)findViewById(R.id.toolbar_title);
@@ -267,6 +271,7 @@ public class MapsActivity extends AppCompatActivity
     @Override
     public void onMapReady(final GoogleMap googleMap) {
         mGoogleMap = googleMap;
+        circles = new ArrayList<Circle>();
         requestingPermission = !locationController.checkPermission(android.Manifest.permission.ACCESS_FINE_LOCATION);
 
         // startup view
@@ -308,5 +313,38 @@ public class MapsActivity extends AppCompatActivity
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
             layoutParams.setMargins(0, 0, 30, 30); // left, top, right, bottom
         }
+
+        googleMap.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
+            @Override
+            public void onCameraMove() {
+                float zoom = googleMap.getCameraPosition().zoom;
+                float sqrZoom = googleMap.getCameraPosition().zoom*googleMap.getCameraPosition().zoom;
+                Log.d("MAP_LOG", "Zoom is " + zoom);
+                for (int i = 0; i < circles.size(); i++) {
+                    circles.get(i).setRadius(750000/pow(2, zoom));
+                    circles.get(i).setStrokeWidth(2.5f);
+                }
+            }
+        });
+
+        googleMap.setOnCircleClickListener(new GoogleMap.OnCircleClickListener() {
+            @Override
+            public void onCircleClick(Circle circle) {
+                Random r = new Random();
+                CircleAnimation.animateCircleToGB(circle,
+                        new LatLng(44.9740 + r.nextFloat()*.5 - .25, -93.2277 + r.nextFloat()*.5 - .25),
+                        new LatLngInterpolator.Linear());
+            }
+        });
+
+        // test circle
+        Random r = new Random();
+        circles.add(mGoogleMap.addCircle(new CircleOptions()
+                .center(new LatLng(44.9740, -93.2277))
+                .radius(750000/pow(2, mGoogleMap.getCameraPosition().zoom))
+                .strokeWidth(2.5f)
+                .strokeColor(Color.WHITE)
+                .fillColor(Color.RED)
+                .clickable(true)));
     }
 }

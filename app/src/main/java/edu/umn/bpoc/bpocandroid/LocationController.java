@@ -30,6 +30,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.Gson;
 
 public class LocationController {
 
@@ -186,9 +187,12 @@ public class LocationController {
                     .build();                   // Creates a CameraPosition from the builder
             googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
+            postLocation(location);
+
             loopRequestLocation = false;
             return location;
         }
+
         if (loopRequestLocation) { // If we want the location to be updated ASAP
             final View v = view;
             final GoogleMap g = googleMap;
@@ -200,6 +204,28 @@ public class LocationController {
                     }, 1000);
         }
         return null;
+    }
+
+    private void postLocation(Location location) {
+        class PostLocationTask extends DatabaseTask {
+            @Override
+            protected void onPostExecute(String result) {
+                if (responseCode != 200) {
+                    Log.d("MAP_LOG", "Response Code: " + responseCode);
+                    //TODO: Handle bad response
+                    return;
+                }
+                else {
+                    Log.d("MAP_LOG", "Post successful");
+                }
+            }
+        }
+
+        PostLocationTask task = new PostLocationTask();
+        Gson gson = new Gson();
+        task.setPostData(gson.toJson(location));
+        task.call("locations/postlocation/" + UserAccount.getDBId()
+            + "/" + location.getLatitude() + "/" + location.getLongitude());
     }
 
     public void moveToCampus(GoogleMap googleMap) {
