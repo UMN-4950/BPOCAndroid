@@ -167,10 +167,7 @@ public class MapsActivity extends AppCompatActivity
         TextView latlongStatus = (TextView)findViewById(R.id.latLongStatus);
 
         if (id == R.id.nav_map) {
-            fragment = new MapFragment();
-            TextView textView = (TextView)findViewById(R.id.toolbar_title);
-            textView.setText("Map");
-            //Handle the camera action
+            locationController.moveToCampus(mGoogleMap);
         } else if (id == R.id.nav_friendlist) {
             fragment = new FriendListFragment();
             TextView textView = (TextView)findViewById(R.id.toolbar_title);
