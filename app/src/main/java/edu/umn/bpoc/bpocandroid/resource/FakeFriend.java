@@ -11,14 +11,16 @@ public class FakeFriend {
     public String Name;
     public String Status;
     public double Distance;
-    public List<Double> TravelPath = new ArrayList<Double>();
+    public List<Double> TravelPathLat = new ArrayList<Double>();
+    public List<Double> TravelPathLong = new ArrayList<Double>();
 
-    public FakeFriend(int id, String name, String status, double distance, List<Double>travelpath) {
+    public FakeFriend(int id, String name, String status, double distance, List<Double>travelpathlat, List<Double>travelpathlong) {
         this.Id = id;
         this.Name = name;
         this.Status = status;
         this.Distance = distance;
-        this.TravelPath = travelpath;
+        this.TravelPathLat = travelpathlat;
+        this.TravelPathLong = travelpathlong;
     }
 
     public String getName() {return this.Name;}

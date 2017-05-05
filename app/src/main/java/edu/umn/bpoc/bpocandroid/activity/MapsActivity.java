@@ -43,6 +43,7 @@ import java.util.Random;
 import edu.umn.bpoc.bpocandroid.LocationController;
 import edu.umn.bpoc.bpocandroid.LocationHelper;
 import edu.umn.bpoc.bpocandroid.R;
+import edu.umn.bpoc.bpocandroid.resource.FakeFriend;
 import edu.umn.bpoc.bpocandroid.utilities.CircleAnimation;
 import edu.umn.bpoc.bpocandroid.utilities.LatLngInterpolator;
 import edu.umn.bpoc.bpocandroid.utilities.Util;
@@ -64,6 +65,8 @@ public class MapsActivity extends AppCompatActivity
     private boolean requestingPermission = false; // Prevents toasts from being generated when requesting permissions
 
     private List<Circle> circles;
+    private List<FakeFriend> fakeFriends;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
