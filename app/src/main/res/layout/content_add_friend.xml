@@ -14,10 +14,15 @@
     tools:showIn="@layout/activity_add_friend">
 
     <android.support.v7.widget.SearchView
+        android:id="@+id/new_friend_search"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:label="@string/app_label"
         android:hint="@string/search_hint"
         />
+    <ListView
+        android:id="@+id/stranger_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 </RelativeLayout>
