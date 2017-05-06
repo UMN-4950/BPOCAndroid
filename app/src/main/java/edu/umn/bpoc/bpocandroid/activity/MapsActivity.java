@@ -32,6 +32,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
@@ -256,6 +257,7 @@ public class MapsActivity extends AppCompatActivity
 
     @Override
     public void onLocationChanged(Location location) {
+        // this is where we would put callback code to true location updates
     }
 
     @Override
@@ -277,7 +279,13 @@ public class MapsActivity extends AppCompatActivity
     public void onMapReady(final GoogleMap googleMap) {
         mGoogleMap = googleMap;
         circles = new ArrayList<Circle>();
+        fakeFriends = new ArrayList<FakeFriend>();
         requestingPermission = !locationController.checkPermission(android.Manifest.permission.ACCESS_FINE_LOCATION);
+
+        // restrict the camera
+        UiSettings googleMapUiSettings = mGoogleMap.getUiSettings();
+        googleMapUiSettings.setZoomControlsEnabled(false);
+        googleMapUiSettings.setTiltGesturesEnabled(false);
 
         // startup view
         Location startLocation = locationController.getLocation(this.getCurrentFocus(), mGoogleMap);
@@ -286,6 +294,9 @@ public class MapsActivity extends AppCompatActivity
         } else {
             locationStatus.setText("null location");
         }
+
+        // start running location services
+        cycleLocationUpdate();
 
         getLocationButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -376,5 +387,15 @@ public class MapsActivity extends AppCompatActivity
         fakeFriends.add(fakeFriend3);
         fakeFriends.add(fakeFriend4);
         fakeFriends.add(fakeFriend5);
+    }
+
+    private void cycleLocationUpdate() {
+        locationController.updateLocation(mGoogleMap);
+        new android.os.Handler().postDelayed(
+                new Runnable() {
+                    public void run() {
+                        cycleLocationUpdate();
+                    }
+                }, 30 * 1000); // 30 seconds per update
     }
 }

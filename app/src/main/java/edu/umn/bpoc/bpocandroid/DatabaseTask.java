@@ -67,7 +67,7 @@ public class DatabaseTask extends AsyncTask<String, Void, String> {
             urlConnection.setDoInput(true);
             urlConnection.setRequestMethod(method); // I think this is necessary
             if (method != "GET" && output != null) { // Write out the data in the body
-                urlConnection.setRequestProperty("Content-Type", "application/json");
+                urlConnection.setRequestProperty("Content-Type", "application/json"); // this shouldn't be always set to this, but it currently works
                 urlConnection.setDoOutput(true);
                 OutputStream os = new BufferedOutputStream(urlConnection.getOutputStream());
                 writeStream(os, output);
