@@ -67,7 +67,6 @@ public class MapsActivity extends AppCompatActivity
     private List<Circle> circles;
     private List<FakeFriend> fakeFriends;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -150,14 +149,14 @@ public class MapsActivity extends AppCompatActivity
 
     private void signOut() {
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
-            new ResultCallback<Status>() {
-                @Override
-                public void onResult(Status status) {
-                    if (!requestingPermission)
-                        Util.generateToast("signed out", getApplicationContext());
-                    startActivity(new Intent(getApplicationContext(), LoginPageActivity.class));
-                }
-            });
+                new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(Status status) {
+                        if (!requestingPermission)
+                            Util.generateToast("signed out", getApplicationContext());
+                        startActivity(new Intent(getApplicationContext(), LoginPageActivity.class));
+                    }
+                });
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -170,7 +169,10 @@ public class MapsActivity extends AppCompatActivity
         TextView latlongStatus = (TextView)findViewById(R.id.latLongStatus);
 
         if (id == R.id.nav_map) {
-            locationController.moveToCampus(mGoogleMap);
+            fragment = new MapFragment();
+            TextView textView = (TextView)findViewById(R.id.toolbar_title);
+            textView.setText("Map");
+            //Handle the camera action
         } else if (id == R.id.nav_friendlist) {
             fragment = new FriendListFragment();
             TextView textView = (TextView)findViewById(R.id.toolbar_title);
@@ -322,7 +324,6 @@ public class MapsActivity extends AppCompatActivity
             public void onCameraMove() {
                 float zoom = googleMap.getCameraPosition().zoom;
                 float sqrZoom = googleMap.getCameraPosition().zoom*googleMap.getCameraPosition().zoom;
-                Log.d("MAP_LOG", "Zoom is " + zoom);
                 for (int i = 0; i < circles.size(); i++) {
                     circles.get(i).setRadius(750000/pow(2, zoom));
                     circles.get(i).setStrokeWidth(2.5f);

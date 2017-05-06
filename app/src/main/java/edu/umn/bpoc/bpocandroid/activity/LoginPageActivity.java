@@ -156,7 +156,7 @@ public class LoginPageActivity extends FragmentActivity implements
             UserAccount.setGoogleAccount(result);
 
             // implement the callback class for checking the database id
-            class GetIdTask extends DatabaseTask {
+            class CheckGoogleIdTask extends DatabaseTask {
                 @Override
                 protected void onPostExecute(String result) {
                     if (responseCode == 404) {
@@ -171,15 +171,37 @@ public class LoginPageActivity extends FragmentActivity implements
                         return;
                     }
 
-                    Gson gson = new Gson();
-                    User user = gson.fromJson(result, User.class);
-                    UserAccount.setDBId(user.Id);
-                    signIntoDatabase();
+                    getFromDatabase();
                 }
             }
 
-            new GetIdTask().call("users/checklogin/" + UserAccount.getGoogleId());
+            new CheckGoogleIdTask().call("users/checklogin/" + UserAccount.getGoogleId());
         }
+    }
+
+    private void getFromDatabase() {
+        // implement the callback class for checking the database id
+        class GetIdTask extends DatabaseTask {
+            @Override
+            protected void onPostExecute(String result) {
+                if (responseCode == 404) {
+                    Log.d("AccountActivity", "Account not found");
+                    postToDatabase();
+                    //TODO: Post user account to db
+                    return;
+                }
+                else if (responseCode != 200) {
+                    Log.d("AccountActivity", "Response Code: " + responseCode);
+                    //TODO: Handle bad response code
+                    return;
+                }
+
+                UserAccount.setDBId(Integer.valueOf(result));
+                signIntoDatabase();
+            }
+        }
+
+        new GetIdTask().call("users/getid/" + UserAccount.getGoogleId());
     }
 
     private void postToDatabase() {

@@ -211,7 +211,7 @@ public class LocationController {
             @Override
             protected void onPostExecute(String result) {
                 if (responseCode != 200) {
-                    Log.d("MAP_LOG", "Response Code: " + responseCode);
+                    Log.d("MAP_LOG", "Post failed, Response Code: " + responseCode);
                     //TODO: Handle bad response
                     return;
                 }
@@ -222,10 +222,10 @@ public class LocationController {
         }
 
         PostLocationTask task = new PostLocationTask();
-        Gson gson = new Gson();
-        task.setPostData(gson.toJson(location));
-        task.call("locations/postlocation/" + UserAccount.getDBId()
-            + "/" + location.getLatitude() + "/" + location.getLongitude());
+        task.setPost();
+        task.call("locations/postlocation?" + "id=" + UserAccount.getDBId() +
+                "&lat=" + location.getLatitude() +
+                "&lon=" + location.getLongitude());
     }
 
     public void moveToCampus(GoogleMap googleMap) {
