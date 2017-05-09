@@ -9,6 +9,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -18,6 +19,7 @@ import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 public class DatabaseTask extends AsyncTask<String, Void, String> {
@@ -25,6 +27,7 @@ public class DatabaseTask extends AsyncTask<String, Void, String> {
     private final String dbURL = "http://bpocrestservice.azurewebsites.net/api/";
     private String method = "GET";
     private String output = null;
+    private boolean sendingJson = false;
     protected int responseCode;
     protected static List<String> cookies = null;
     private boolean needsCookie = false;
@@ -39,8 +42,16 @@ public class DatabaseTask extends AsyncTask<String, Void, String> {
         method = "POST";
     }
 
+    public void setPost() {
+        method = "POST";
+    }
+
     public void setPutData(String json) {
         output = json;
+        method = "PUT";
+    }
+
+    public void setPut() {
         method = "PUT";
     }
 
@@ -54,12 +65,12 @@ public class DatabaseTask extends AsyncTask<String, Void, String> {
             URL url = new URL(urls[0]);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoInput(true);
-            if (method != "GET") {
-                urlConnection.setRequestProperty("Content-Type", "application/json");
-                urlConnection.setRequestMethod(method); // I think this is necessary
+            urlConnection.setRequestMethod(method); // I think this is necessary
+            if (method != "GET" && output != null) { // Write out the data in the body
+                urlConnection.setRequestProperty("Content-Type", "application/json"); // this shouldn't be always set to this, but it currently works
                 urlConnection.setDoOutput(true);
                 OutputStream os = new BufferedOutputStream(urlConnection.getOutputStream());
-                writeStream(os);
+                writeStream(os, output);
                 urlConnection.connect();
             }
 
@@ -114,10 +125,10 @@ public class DatabaseTask extends AsyncTask<String, Void, String> {
     }
 
     // Helper for writing JSON object to database
-    private void writeStream(OutputStream os) {
+    private void writeStream(OutputStream os, String out) {
         try {
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "utf-8"));
-            writer.write(output);
+            writer.write(out);
             writer.flush();
             writer.close();
             os.close();

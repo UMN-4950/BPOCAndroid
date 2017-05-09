@@ -39,6 +39,7 @@ public class LocationController {
     private LocationRequest locationRequest;
     private LocationListener locationListener;
     private LocationManager locationManager;
+    private Location lastLocation = null;
 
     private GoogleApiClient mGoogleApiClient;
     private boolean doNotShowAgain = false;
@@ -156,28 +157,9 @@ public class LocationController {
     }
 
     public Location getLocation(View view, GoogleMap googleMap) {
-        // Check permissions
-        if (!checkPermission(android.Manifest.permission.ACCESS_FINE_LOCATION)) {
-            if (!doNotShowAgain && !requestingPermission) {
-                ActivityCompat.requestPermissions(locationActivity,
-                        new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
-                        0);
-                requestingPermission = true;
-            }
-            return null;
-        }
 
-        checkLocationSettings();
+        Location location = updateLocation(googleMap);
 
-        googleMap.setMyLocationEnabled(true);
-        
-        UiSettings googleMapUiSettings = googleMap.getUiSettings();
-        googleMapUiSettings.setZoomControlsEnabled(false);
-        googleMapUiSettings.setTiltGesturesEnabled(false);
-
-        Criteria criteria = new Criteria();
-
-        Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
         if (location != null) {
             googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 13));
 
@@ -206,29 +188,84 @@ public class LocationController {
         return null;
     }
 
+    public Location updateLocation(GoogleMap googleMap) {
+        // Check permissions
+        if (!checkPermission(android.Manifest.permission.ACCESS_FINE_LOCATION)) {
+            if (!doNotShowAgain && !requestingPermission) {
+                ActivityCompat.requestPermissions(locationActivity,
+                        new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                        0);
+                requestingPermission = true;
+            }
+            return null;
+        }
+
+        checkLocationSettings();
+
+        googleMap.setMyLocationEnabled(true);
+
+        Criteria criteria = new Criteria();
+
+        Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
+        // if the last location is more than 40ft away from our new location
+        if (location != null && (lastLocation == null || distance(location, lastLocation) >= 40)) {
+            postLocation(location);
+            lastLocation = location;
+        }
+
+        return location;
+    }
+
     private void postLocation(Location location) {
         class PostLocationTask extends DatabaseTask {
             @Override
             protected void onPostExecute(String result) {
                 if (responseCode != 200) {
-                    Log.d("MAP_LOG", "Response Code: " + responseCode);
+                    Log.d("MAP_LOG", "Location post failed, Response Code: " + responseCode);
                     //TODO: Handle bad response
                     return;
                 }
                 else {
-                    Log.d("MAP_LOG", "Post successful");
+                    Log.d("MAP_LOG", "Location post successful");
                 }
             }
         }
 
         PostLocationTask task = new PostLocationTask();
-        Gson gson = new Gson();
-        task.setPostData(gson.toJson(location));
-        task.call("locations/postlocation/" + UserAccount.getDBId()
-            + "/" + location.getLatitude() + "/" + location.getLongitude());
+        task.setPost();
+        task.call("locations/postlocation?" + "id=" + UserAccount.getDBId() +
+                "&lat=" + location.getLatitude() +
+                "&lon=" + location.getLongitude());
     }
 
     public void moveToCampus(GoogleMap googleMap) {
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(44.9740, -93.2277), 14.0f));
+    }
+
+    /** taken from http://stackoverflow.com/a/18170277 **/
+    /** calculates the distance between two locations in FEET */
+    private double distance(Location loc1, Location loc2) {
+        double lat1, lng1, lat2, lng2;
+        lat1 = loc1.getLatitude();
+        lng1 = loc1.getLongitude();
+        lat2 = loc2.getLatitude();
+        lng2 = loc2.getLongitude();
+
+        double earthRadius = 3958.75 * 5280; // in feet, change to 6371 for kilometer output
+
+        double dLat = Math.toRadians(lat2-lat1);
+        double dLng = Math.toRadians(lng2-lng1);
+
+        double sindLat = Math.sin(dLat / 2);
+        double sindLng = Math.sin(dLng / 2);
+
+        double a = Math.pow(sindLat, 2) + Math.pow(sindLng, 2)
+                * Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2));
+
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+        double dist = earthRadius * c;
+
+        return dist; // output distance, in MILES
     }
 }
