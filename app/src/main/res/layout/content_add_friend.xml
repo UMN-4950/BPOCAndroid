@@ -20,9 +20,20 @@
         android:label="@string/app_label"
         android:hint="@string/search_hint"
         />
+
     <ListView
         android:id="@+id/stranger_list"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/new_friend_search"
+        android:layout_alignParentStart="true" />
+    <TextView
+        android:id="@+id/search_result"
+        android:layout_alignParentEnd="true"
+        android:textSize="20dp"
+        android:text="No User Found"
+        android:layout_height="32dp"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/new_friend_search"
+        android:visibility="gone"/>
 </RelativeLayout>

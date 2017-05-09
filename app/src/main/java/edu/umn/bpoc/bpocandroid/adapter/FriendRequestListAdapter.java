@@ -67,8 +67,8 @@ public class FriendRequestListAdapter extends BaseAdapter {
         }
 
         viewHolder.friendRequestIcon.setImageResource(R.drawable.bpoc);
-        viewHolder.friendRequestName.setText(friendRequestList.get(position).getStrangerName());
-        viewHolder.requesterId.setText(Integer.toString(friendRequestList.get(position).getStrangerId()));
+        viewHolder.friendRequestName.setText(friendRequestList.get(position).getStrangerPendingName());
+        viewHolder.requesterId.setText(Integer.toString(friendRequestList.get(position).getStrangerPendingId()));
         viewHolder.accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

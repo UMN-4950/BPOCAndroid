@@ -7,14 +7,14 @@ import android.content.Intent;
  */
 
 public class FriendRequest {
-    private int strangerId;
-    private String strangerName;
+    private int strangerPendingId;
+    private String strangerPendingName;
 
-    public FriendRequest (int strangerId, String strangerName){
-        this.strangerId = strangerId;
-        this.strangerName = strangerName;
+    public FriendRequest (int strangerPendingId, String strangerPendingName){
+        this.strangerPendingId = strangerPendingId;
+        this.strangerPendingName = strangerPendingName;
     }
 
-    public String getStrangerName() {return this.strangerName;}
-    public int getStrangerId() {return this.strangerId;}
+    public String getStrangerPendingName() {return this.strangerPendingName;}
+    public int getStrangerPendingId() {return this.strangerPendingId;}
 }
