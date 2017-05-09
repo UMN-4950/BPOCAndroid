@@ -52,12 +52,12 @@ public class AddFriend extends AppCompatActivity {
                 toast.show();
                 //insert the search api here, search name by the query
                 //fake data only for test
-//                Stranger stranger1 = new Stranger(123, "Tom", "NotFriend");
-//                Stranger stranger2 = new Stranger(456, "Tony", "NotFriend");
-//                Stranger stranger3 = new Stranger(789, "Uber", "Friend");
-//                result.add(stranger1);
-//                result.add(stranger2);
-//                result.add(stranger3);
+                Stranger stranger1 = new Stranger(123, "Tom", "NotFriend");
+                Stranger stranger2 = new Stranger(456, "Tony", "NotFriend");
+                Stranger stranger3 = new Stranger(789, "Uber", "Friend");
+                result.add(stranger1);
+                result.add(stranger2);
+                result.add(stranger3);
                 if(result.isEmpty()){
                     noFound.setVisibility(View.VISIBLE);
                 }

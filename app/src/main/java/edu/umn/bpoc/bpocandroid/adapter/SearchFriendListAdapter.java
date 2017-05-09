@@ -67,6 +67,8 @@ public class SearchFriendListAdapter extends BaseAdapter {
             viewHolder.strangerIcon.setImageResource(R.drawable.bpoc);
             viewHolder.strangerName.setText(searchResult.get(position).getStrangerName());
             viewHolder.strangerId.setText(Integer.toString(searchResult.get(position).getStrangerId()));
+            viewHolder.addStranger.setVisibility(View.VISIBLE);
+            viewHolder.addStranger.setText("Add");
             viewHolder.addStranger.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
