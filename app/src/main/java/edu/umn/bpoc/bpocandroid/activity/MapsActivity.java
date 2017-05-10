@@ -33,9 +33,12 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +50,7 @@ import edu.umn.bpoc.bpocandroid.R;
 import edu.umn.bpoc.bpocandroid.resource.FakeFriend;
 import edu.umn.bpoc.bpocandroid.utilities.CircleAnimation;
 import edu.umn.bpoc.bpocandroid.utilities.LatLngInterpolator;
+import edu.umn.bpoc.bpocandroid.utilities.MarkerAnimation;
 import edu.umn.bpoc.bpocandroid.utilities.Util;
 import edu.umn.bpoc.bpocandroid.fragment.*;
 
@@ -65,6 +69,7 @@ public class MapsActivity extends AppCompatActivity
     private GoogleMap mGoogleMap;
     private boolean requestingPermission = false; // Prevents toasts from being generated when requesting permissions
 
+    private List<Marker> markers;
     private List<Circle> circles;
     private List<FakeFriend> fakeFriends;
     private int travelIdx = 0;
@@ -279,6 +284,7 @@ public class MapsActivity extends AppCompatActivity
     @Override
     public void onMapReady(final GoogleMap googleMap) {
         mGoogleMap = googleMap;
+        markers = new ArrayList<Marker>();
         circles = new ArrayList<Circle>();
         fakeFriends = new ArrayList<FakeFriend>();
         requestingPermission = !locationController.checkPermission(android.Manifest.permission.ACCESS_FINE_LOCATION);
@@ -287,6 +293,7 @@ public class MapsActivity extends AppCompatActivity
         UiSettings googleMapUiSettings = mGoogleMap.getUiSettings();
         googleMapUiSettings.setZoomControlsEnabled(false);
         googleMapUiSettings.setTiltGesturesEnabled(false);
+        googleMapUiSettings.setMapToolbarEnabled(false);
 
         // startup view
         Location startLocation = locationController.getLocation(this.getCurrentFocus(), mGoogleMap);
@@ -335,11 +342,20 @@ public class MapsActivity extends AppCompatActivity
             @Override
             public void onCameraMove() {
                 float zoom = googleMap.getCameraPosition().zoom;
-                for (int i = 0; i < circles.size(); i++) {
+                /*for (int i = 0; i < circles.size(); i++) {
                     circles.get(i).setRadius(750000/pow(2, zoom));
                     circles.get(i).setStrokeWidth(2.5f);
+                }*/
+                if (zoom > 12) {
+                    for (int i = 0; i < markers.size(); i++) {
+                        markers.get(i).setVisible(true);
+                    }
                 }
-
+                else {
+                    for (int i = 0; i < markers.size(); i++) {
+                        markers.get(i).setVisible(false);
+                    }
+                }
             }
         });
 
@@ -377,11 +393,11 @@ public class MapsActivity extends AppCompatActivity
         double[] long4 = {-93.228420000, -93.229000000, -93.229260000, -93.229520000, -93.230100000, -93.230710000, -93.230840000, -93.230840000, -93.231070000, -93.231200000, -93.231320000, -93.231650000, -93.232000000, -93.232220000, -93.232430000, -93.232430000, -93.232610000, -93.232640000, -93.232660000, -93.232680000, -93.232700000, -93.232730000, -93.232760000, -93.232800000, -93.232950000, -93.232960000, -93.233130000, -93.233330000, -93.233520000, -93.233670000, -93.233710000, -93.233710000, -93.233920000, -93.233920000, -93.234310000, -93.234700000, -93.234700000, -93.234700000, -93.234700000, -93.234990000, -93.234990000, -93.234990000, -93.235190000, -93.235190000, -93.235190000, -93.235190000, -93.235200000, -93.235210000, -93.235370000, -93.235370000, -93.235370000, -93.235370000, -93.235730000, -93.235730000, -93.236780000, -93.236880000, -93.236880000, -93.236890000, -93.236890000, -93.237200000, -93.237210000, -93.237220000, -93.237250000, -93.237260000, -93.237540000, -93.237590000, -93.237630000, -93.237660000, -93.237680000, -93.237710000, -93.237850000, -93.237850000, -93.237850000, -93.237860000, -93.237860000, -93.237870000, -93.237870000, -93.237880000, -93.237890000, -93.237890000, -93.237890000, -93.237900000, -93.237900000, -93.237900000, -93.237900000, -93.237900000, -93.237900000, -93.237900000, -93.237900000, -93.237900000, -93.237900000, -93.237910000, -93.237910000, -93.237910000, -93.237910000, -93.237910000, -93.237920000, -93.237900000, -93.237890000, -93.237830000, -93.237740000, -93.237740000, -93.237700000, -93.237670000, -93.237640000, -93.237640000, -93.236900000};
         double[] long5 = {-93.227440000, -93.227490000, -93.227510000, -93.227730000, -93.227850000, -93.227870000, -93.227880000, -93.227920000, -93.228000000, -93.228010000, -93.228020000, -93.228020000, -93.228020000, -93.228010000, -93.228010000, -93.228010000, -93.228020000, -93.228050000, -93.228070000, -93.228080000, -93.228090000, -93.228090000, -93.228100000, -93.228110000, -93.228140000, -93.228160000, -93.228170000, -93.228190000, -93.228200000, -93.228220000, -93.228260000, -93.228260000, -93.228420000, -93.228530000, -93.228690000, -93.230290000, -93.231860000, -93.232100000, -93.233740000, -93.233860000, -93.234220000, -93.234320000, -93.234530000, -93.234690000, -93.235450000, -93.235450000, -93.235450000, -93.235470000, -93.235480000, -93.235500000, -93.235550000, -93.235670000, -93.235740000, -93.235710000, -93.235720000, -93.235720000, -93.236690000, -93.236690000, -93.236690000, -93.236690000, -93.236790000, -93.236860000, -93.236900000, -93.236960000, -93.237090000, -93.237230000, -93.237380000, -93.237440000, -93.237470000, -93.237510000, -93.237630000, -93.237920000, -93.238210000, -93.241020000, -93.241260000, -93.241320000, -93.241410000, -93.241600000, -93.241890000, -93.242290000, -93.242490000, -93.242560000, -93.242620000, -93.242650000, -93.242680000, -93.242680000, -93.242680000, -93.242680000, -93.242680000, -93.242720000, -93.242740000, -93.242760000, -93.242800000, -93.242900000, -93.242940000, -93.242980000, -93.243030000, -93.243070000, -93.243110000, -93.243200000, -93.243690000, -93.243730000, -93.243750000, -93.243780000, -93.243820000, -93.243890000, -93.243930000, -93.243990000};
 
-        FakeFriend fakeFriend1 = new FakeFriend(1, "bob1", "status1", 2.0, lat1, long1);
-        FakeFriend fakeFriend2 = new FakeFriend(2, "bob2", "status2", 2.0, lat2, long2);
-        FakeFriend fakeFriend3 = new FakeFriend(3, "bob3", "status3", 2.0, lat3, long3);
-        FakeFriend fakeFriend4 = new FakeFriend(4, "bob4", "status4", 2.0, lat4, long4);
-        FakeFriend fakeFriend5 = new FakeFriend(5, "bob5", "status5", 2.0, lat5, long5);
+        FakeFriend fakeFriend1 = new FakeFriend(1, "Arthur Fonzarelli", "Friend", 2.0, lat1, long1);
+        FakeFriend fakeFriend2 = new FakeFriend(2, "Richie Cunningham", "Friend", 2.0, lat2, long2);
+        FakeFriend fakeFriend3 = new FakeFriend(3, "Joanie Cunningham", "Friend", 2.0, lat3, long3);
+        FakeFriend fakeFriend4 = new FakeFriend(4, "Warren Weber", "Friend", 2.0, lat4, long4);
+        FakeFriend fakeFriend5 = new FakeFriend(5, "Jenny Piccalo", "Friend", 2.0, lat5, long5);
 
         fakeFriends.add(fakeFriend1);
         fakeFriends.add(fakeFriend2);
@@ -389,7 +405,7 @@ public class MapsActivity extends AppCompatActivity
         fakeFriends.add(fakeFriend4);
         fakeFriends.add(fakeFriend5);
 
-        for (int i = 0; i < fakeFriends.size(); i++) {
+        /*for (int i = 0; i < fakeFriends.size(); i++) {
             circles.add(mGoogleMap.addCircle(new CircleOptions()
                     .center(new LatLng(fakeFriends.get(i).TravelPathLat[travelIdx],
                             fakeFriends.get(i).TravelPathLong[travelIdx]))
@@ -397,16 +413,35 @@ public class MapsActivity extends AppCompatActivity
                     .strokeWidth(2.5f)
                     .strokeColor(Color.WHITE)
                     .fillColor(Color.RED)
-                    .clickable(true)));
+                    .clickable(true)));*/
+
+        for (int i = 0; i < fakeFriends.size(); i++) {
+            markers.add(mGoogleMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(fakeFriends.get(i).TravelPathLat[travelIdx],
+                            fakeFriends.get(i).TravelPathLong[travelIdx]))
+                    .title(fakeFriends.get(i).getName())
+                    .snippet(String.valueOf(fakeFriends.get(i).getDistance()))
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.street_view_20))
+                    .anchor(0.5f, 0.5f)
+                    .flat(true)));
         }
         travelIdx++;
     }
 
     private void updateFakeFriendPositions() {
-        for (int i = 0; i < fakeFriends.size(); i++) {
+        /*for (int i = 0; i < fakeFriends.size(); i++) {
             int len = fakeFriends.get(i).TravelPathLat.length;
             CircleAnimation.animateCircleToGB(
                     circles.get(i),
+                    new LatLng(fakeFriends.get(i).TravelPathLat[travelIdx%len],
+                            fakeFriends.get(i).TravelPathLong[travelIdx%len]),
+                    new LatLngInterpolator.Linear(),
+                    3.0f * 1000);
+        }*/
+        for (int i = 0; i < fakeFriends.size(); i++) {
+            int len = fakeFriends.get(i).TravelPathLat.length;
+            MarkerAnimation.animateMarkerToGB(
+                    markers.get(i),
                     new LatLng(fakeFriends.get(i).TravelPathLat[travelIdx%len],
                             fakeFriends.get(i).TravelPathLong[travelIdx%len]),
                     new LatLngInterpolator.Linear(),
@@ -423,6 +458,6 @@ public class MapsActivity extends AppCompatActivity
                     public void run() {
                         cycleLocationUpdate();
                     }
-                }, 30 * 1000); // 30 seconds per update
+                }, 5 * 1000); // 30 seconds per update
     }
 }
