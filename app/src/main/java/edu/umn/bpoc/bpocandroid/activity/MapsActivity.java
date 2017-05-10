@@ -67,6 +67,7 @@ public class MapsActivity extends AppCompatActivity
 
     private List<Circle> circles;
     private List<FakeFriend> fakeFriends;
+    private int travelIdx = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -334,7 +335,6 @@ public class MapsActivity extends AppCompatActivity
             @Override
             public void onCameraMove() {
                 float zoom = googleMap.getCameraPosition().zoom;
-                float sqrZoom = googleMap.getCameraPosition().zoom*googleMap.getCameraPosition().zoom;
                 for (int i = 0; i < circles.size(); i++) {
                     circles.get(i).setRadius(750000/pow(2, zoom));
                     circles.get(i).setStrokeWidth(2.5f);
@@ -343,7 +343,8 @@ public class MapsActivity extends AppCompatActivity
             }
         });
 
-        googleMap.setOnCircleClickListener(new GoogleMap.OnCircleClickListener() {
+        // Prelim circle testing stuff
+        /*googleMap.setOnCircleClickListener(new GoogleMap.OnCircleClickListener() {
             @Override
             public void onCircleClick(Circle circle) {
                 Random r = new Random();
@@ -361,7 +362,7 @@ public class MapsActivity extends AppCompatActivity
                 .strokeWidth(2.5f)
                 .strokeColor(Color.WHITE)
                 .fillColor(Color.RED)
-                .clickable(true)));
+                .clickable(true)));*/
 
         // populate FakeFriends
         double[] lat1 = {44.974580000, 44.974630000, 44.974800000, 44.974900000, 44.974900000, 44.974900000, 44.974890000, 44.974890000, 44.975670000, 44.976020000, 44.976020000, 44.976020000, 44.976020000, 44.976040000, 44.976060000, 44.976070000, 44.976080000, 44.976090000, 44.976100000, 44.976110000, 44.976130000, 44.976140000, 44.976150000, 44.976160000, 44.976180000, 44.976240000, 44.976370000, 44.976640000, 44.976720000, 44.976830000, 44.976940000, 44.977020000, 44.977030000, 44.977110000, 44.977210000, 44.977280000, 44.977380000, 44.977420000, 44.977460000, 44.977500000, 44.977550000, 44.977610000, 44.977690000, 44.978000000, 44.978110000, 44.978130000, 44.978150000, 44.978170000, 44.978170000, 44.978180000, 44.978200000, 44.978220000, 44.978410000, 44.978450000, 44.978480000, 44.978500000, 44.978520000, 44.978530000, 44.978530000, 44.978530000, 44.978670000, 44.978710000, 44.978760000, 44.979230000, 44.979380000, 44.979380000, 44.979420000, 44.979530000, 44.979530000, 44.979560000, 44.979590000, 44.979690000, 44.979780000, 44.979920000, 44.980070000, 44.980490000, 44.981470000, 44.982030000};
@@ -387,10 +388,36 @@ public class MapsActivity extends AppCompatActivity
         fakeFriends.add(fakeFriend3);
         fakeFriends.add(fakeFriend4);
         fakeFriends.add(fakeFriend5);
+
+        for (int i = 0; i < fakeFriends.size(); i++) {
+            circles.add(mGoogleMap.addCircle(new CircleOptions()
+                    .center(new LatLng(fakeFriends.get(i).TravelPathLat[travelIdx],
+                            fakeFriends.get(i).TravelPathLong[travelIdx]))
+                    .radius(750000/pow(2, mGoogleMap.getCameraPosition().zoom))
+                    .strokeWidth(2.5f)
+                    .strokeColor(Color.WHITE)
+                    .fillColor(Color.RED)
+                    .clickable(true)));
+        }
+        travelIdx++;
+    }
+
+    private void updateFakeFriendPositions() {
+        for (int i = 0; i < fakeFriends.size(); i++) {
+            int len = fakeFriends.get(i).TravelPathLat.length;
+            CircleAnimation.animateCircleToGB(
+                    circles.get(i),
+                    new LatLng(fakeFriends.get(i).TravelPathLat[travelIdx%len],
+                            fakeFriends.get(i).TravelPathLong[travelIdx%len]),
+                    new LatLngInterpolator.Linear(),
+                    3.0f * 1000);
+        }
+        travelIdx = (travelIdx + 5)%100;
     }
 
     private void cycleLocationUpdate() {
-        locationController.updateLocation(mGoogleMap);
+        //locationController.updateLocation(mGoogleMap);
+        updateFakeFriendPositions();
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {

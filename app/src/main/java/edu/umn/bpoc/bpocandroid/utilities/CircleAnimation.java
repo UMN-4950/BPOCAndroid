@@ -19,12 +19,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 
 public class CircleAnimation {
-    public static void animateCircleToGB(final Circle circle, final LatLng finalPosition, final LatLngInterpolator latLngInterpolator) {
+    public static void animateCircleToGB(final Circle circle, final LatLng finalPosition, final LatLngInterpolator latLngInterpolator, final float durationInMs) {
         final LatLng startPosition = circle.getCenter();
         final Handler handler = new Handler();
         final long start = SystemClock.uptimeMillis();
         final Interpolator interpolator = new AccelerateDecelerateInterpolator();
-        final float durationInMs = 3000;
 
         handler.post(new Runnable() {
             long elapsed;
